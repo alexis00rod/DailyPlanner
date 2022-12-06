@@ -10,6 +10,6 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/line-clamp'),
-        require('tw-elements/dist/plugin')
+        require('tw-elements/dist/plugin'),
     ],
 }
