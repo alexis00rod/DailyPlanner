@@ -1,10 +1,9 @@
 import { useState,useEffect } from 'react'
+import { NavLink, useParams } from 'react-router-dom'
 import { useUserContext } from '../context/UserContext'
+import { getTasksDb } from '../service/firestore'
 import { Header } from '../components/Header'
 import { TaskItem } from '../components/TaskItem'
-import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom'
-import { useTasks } from '../hooks/useTasks'
-import { getTasksDb } from '../service/firestore'
 
 const NavbarLink = ({children,...props}) => {
     return (
@@ -20,7 +19,7 @@ const NavbarLink = ({children,...props}) => {
 const taskList = (tasks) => tasks.map(item => <TaskItem key={item.id} item={item} />)
 
 export const Home = () => {
-    const {user} = useUserContext()
+    const {userLogged} = useUserContext()
     const {completed} = useParams()
 
     const [allTasks, setAllTasks] = useState([])
@@ -29,16 +28,16 @@ export const Home = () => {
 
     useEffect(() => {
         completed === undefined
-        ?   getTasksDb(user,"created","desc",setPendingTasks,completed)
+        ?   getTasksDb(userLogged,"created","desc",setPendingTasks,completed)
         :   completed === "completed"
-            ?   getTasksDb(user,"created","desc",setCompletedTasks,completed)
-            :   getTasksDb(user,"created","desc",setAllTasks,completed)
+            ?   getTasksDb(userLogged,"created","desc",setCompletedTasks,completed)
+            :   getTasksDb(userLogged,"created","desc",setAllTasks,completed)
 
-    },[user,completed])
+    },[userLogged,completed])
 
     return (
-        <section className='flex flex-col grow overflow-y-scroll'>
-            <Header title={`Hi! ${user.name}`} />
+        <>
+            <Header />
             <main className='w-full px-2 py-2 flex flex-col grow'>
                 <div className='container mx-auto flex flex-col gap-2'>
                     {/* Status filter */}
@@ -51,6 +50,6 @@ export const Home = () => {
                     </ul>
                 </div>
             </main>
-        </section>
+        </>
     )
 }
