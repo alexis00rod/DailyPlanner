@@ -9,7 +9,7 @@ export const Settings = () => {
     }
 
     return (
-        <section className="flex flex-col grow overflow-y-scroll">
+        <>
             <Header title="Settings" />
             <main className="w-full px-2 py-2 flex flex-col grow">
                 <ul className="container mx-auto grow bg-slate-100 rounded-lg shadow-lg">
@@ -23,8 +23,7 @@ export const Settings = () => {
                         </button>
                     </li>
                 </ul>
-                {/* Agregar boton para cambiar de dark mode y boton para elegir color principal */}
             </main>
-        </section>
+        </>
     )
 }
