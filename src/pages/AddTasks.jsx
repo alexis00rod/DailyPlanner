@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Header } from '../components/Header'
 import { serverTimestamp } from 'firebase/firestore'
 import { addTask } from '../service/firestore'
+import { useUserContext } from '../context/UserContext'
+import { Header } from '../components/Header'
 
 const formatDate = (date) => {
     let year = date.getUTCFullYear()
@@ -13,6 +14,7 @@ const formatDate = (date) => {
 }
 
 export const AddTasks = () => {
+    const {userLogged} = useUserContext()
     const navigate = useNavigate()
     const [taskToAdd, setTaskToAdd] = useState({
         title: "",
@@ -39,15 +41,16 @@ export const AddTasks = () => {
 
     const sendTask = e => {
         e.preventDefault()
-        addTask({
+        addTask(userLogged,{
             ...taskToAdd,
             created: serverTimestamp()  
         })
+        .finally(() => navigate("/"))
     }
 
     return (
-        <section className="flex flex-col grow overflow-y-scroll">
-            <Header title="New task" />
+        <>
+        <Header title="New task" />
             <main className="w-full px-2 py-2 flex flex-col grow">
                 <div className="w-full container mx-auto px-1 py-1 flex flex-col grow">
                     <form className='w-full max-w-screen-sm h-full mx-auto px-2 py-2 flex flex-col justify-evenly md:justify-start md:gap-2 bg-slate-100 rounded-lg shadow-lg' onSubmit={sendTask}>
@@ -115,6 +118,6 @@ export const AddTasks = () => {
                     </form>
                 </div>
             </main>
-        </section>
+        </>
     )
 }
