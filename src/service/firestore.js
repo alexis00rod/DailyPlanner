@@ -1,33 +1,33 @@
 import { app } from './key'
-import { getFirestore, collection,addDoc, doc, getDocs, onSnapshot, deleteDoc, updateDoc, query,where, getDoc, orderBy } from 'firebase/firestore'
+import { getFirestore, collection,addDoc, doc, getDocs, onSnapshot, deleteDoc, updateDoc, query,where, getDoc, orderBy, setDoc } from 'firebase/firestore'
 
 const db = getFirestore(app)
 
 // References
-const userRef = (user => doc(db,"users",user))
+const userRef = (user) => doc(db,"users",user)
 const tasksUserRef = (user) => collection(db,"users",user,"tasks")
-
 const taskRef = (user,id) => doc(db,"users",user,"tasks",id)
 
-// Funcion para obtener usuario
-export const getUser = async (user = "alexis00rodrigo@gmail.com") => {
-    return await getDoc(userRef(user))
+// Funcion para agregar usuario a la base de datos
+export const addUserToDb = (user) => {
+    const {email} = user
+    setDoc(userRef(email), user)
 }
 
 // Funcion para agregar tarea a la base de datos
-export const addTask = async (task) => {
-    await addDoc(tasksUserRef("alexis00rodrigo@gmail.com"),task)
+export const addTask = (user,task) => {
+    const { email } = user
+    addDoc(tasksUserRef(email),task)
 }
 
 // Funcion para obtener las tareas desde la base de datos
 export const getTasksDb = (user,by,order,set,status) => {
     const {email} = user
-    const col = collection(db,"users",email,"tasks")
     const ref = status === undefined 
-        ?   query(col,where("completed","==",false),orderBy(by,order)) 
+        ?   query(tasksUserRef(email),where("completed","==",false),orderBy(by,order)) 
         :   status === "completed"
-            ?    query(col,where("completed","==",true),orderBy(by,order)) 
-            :   query(col,orderBy(by,order)) 
+            ?    query(tasksUserRef(email),where("completed","==",true),orderBy(by,order)) 
+            :   query(tasksUserRef(email),orderBy(by,order)) 
 
     onSnapshot(ref,snapshot => {
         set(snapshot.docs.map(e => ({
@@ -38,8 +38,7 @@ export const getTasksDb = (user,by,order,set,status) => {
 }
 
 export const getTasksCount = ({email},set) => {
-    const ref = collection(db,"users",email,"tasks")
-    onSnapshot(ref, snapshot => {
+    onSnapshot(tasksUserRef(email), snapshot => {
         set(snapshot.docs.map(e => ({id: e.id,...e.data()})))
     })
 }
@@ -47,8 +46,7 @@ export const getTasksCount = ({email},set) => {
 // Funcion para obtener las tareas por dia
 export const getDayTasks = (user,day,set) => {
     const {email} = user
-    const col = collection(db,"users",email,"tasks")
-    const ref = query(col,where("day","==",day),orderBy("created","desc"))
+    const ref = query(tasksUserRef(email),where("day","==",day),orderBy("created","desc"))
 
     onSnapshot(ref,snapshot => {
         set(snapshot.docs.map(e => ({
@@ -61,7 +59,7 @@ export const getDayTasks = (user,day,set) => {
 // Funcion para eliminar tarea
 export const deleteTaskDb = (user,task) => {
     const { email } = user
-    deleteDoc(doc(db,"users",email,"tasks",task))
+    deleteDoc(taskRef(email,task))
 }
 
 // Funcion para finalizar tarea
