@@ -1,28 +1,18 @@
 import { useState, useEffect, createContext, useContext } from 'react'
-import { useParams } from 'react-router-dom'
-import photo from '../assets/default-pic-profile.png'
-import { getTasksDb, getUser } from '../service/firestore'
+import { stateAuth } from '../service/auth'
 
 const UserContext = createContext()
 export const useUserContext = () => useContext(UserContext)
 
 export const UserProvider = ({children}) => {
-    const [user, setUser] = useState({})
-    const [loading, setLoading] = useState(false)
+    const [userLogged, setUserLogged] = useState(null)
 
     useEffect(() => {
-        getUser()
-        .then(resp => setUser({
-            id: resp.id,
-            ...resp.data()
-        }))
-        .finally(() => {
-            setLoading(true)
-        })
+        stateAuth(setUserLogged)
     },[])
 
     return (
-        <UserContext.Provider value={{user,loading}}>
+        <UserContext.Provider value={{userLogged}}>
             {children}
         </UserContext.Provider>
     )
