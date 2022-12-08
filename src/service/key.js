@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBLSQnN0O2ZQTXq9aZtmbtiUgH3G8PRNS0",
-  authDomain: "dailyplanner-a8213.firebaseapp.com",
-  projectId: "dailyplanner-a8213",
-  storageBucket: "dailyplanner-a8213.appspot.com",
-  messagingSenderId: "420866746899",
-  appId: "1:420866746899:web:2886e94000d83a0f366de6"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 };
 
 export const app = initializeApp(firebaseConfig);
