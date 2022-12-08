@@ -4,7 +4,7 @@ import { useUserContext } from '../context/UserContext'
 import { completeTaskDb, deleteTaskDb } from '../service/firestore'
 
 export const TaskItem = ({item:{id,title,description,day,category,priority,completed}}) => {
-    const { user } = useUserContext()
+    const { userLogged } = useUserContext()
     const [menu, setMenu] = useState(false)
 
     const handleMenu = (e) => {
@@ -12,11 +12,11 @@ export const TaskItem = ({item:{id,title,description,day,category,priority,compl
     }
 
     const completeTask = () => {
-        completeTaskDb(user,id,completed)
+        completeTaskDb(userLogged,id,completed)
     }
 
     const deleteTask = () => {
-        deleteTaskDb(user,id)
+        deleteTaskDb(userLogged,id)
     }
 
     return (
