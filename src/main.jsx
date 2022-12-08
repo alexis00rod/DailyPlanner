@@ -1,16 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { App } from './App'
 import { UserProvider } from './context/UserContext'
+import { Login } from './pages/Login'
+import { Signup } from './pages/Signup'
+import { App } from './components/App'
 import { Home } from './pages/Home'
 import { TaskView } from './pages/TaskView'
 import { AddTasks } from './pages/AddTasks'
 import { Calendar } from './pages/Calendar'
 import { Profile } from './pages/Profile'
 import { Settings } from './pages/Settings'
-import moment from 'moment'
 import './index.css'
+import 'tw-elements'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
@@ -26,6 +28,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                         <Route path='profile' element={<Profile />}></Route>
                         <Route path='settings' element={<Settings />}></Route>
                     </Route>
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/signup' element={<Signup />} />
                 </Routes>
             </UserProvider>
         </BrowserRouter>
