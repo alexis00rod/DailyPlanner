@@ -4,7 +4,6 @@ import { Loader } from "./Loader"
 
 export const ProtectedRoutes = ({children}) => {
     const {userLogged} = useUserContext()
-    console.log("Protected route",userLogged)
     if(userLogged === null) return <Navigate to='/login' />
     if(userLogged === undefined) return <Loader />
     return children
