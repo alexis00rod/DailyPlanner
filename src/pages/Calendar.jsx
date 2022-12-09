@@ -4,6 +4,7 @@ import { getDayTasks } from '../service/firestore'
 import { Header } from "../components/Header"
 import { TaskItem } from "../components/TaskItem"
 import { Loader } from '../components/Loader'
+import { Main } from '../components/Main'
 
 const days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
 const months = ["january","february","march","april","may","june","july","august","september","october","november","december"]
@@ -40,12 +41,13 @@ export const Calendar = () => {
     return (
         <>
             <Header title="Calendar" />
-            <main className="w-full px-2 py-2 flex flex-col grow">
-                <div className="container mx-auto flex flex-col gap-2">
-                    <div className="w-full h-max px-2 py-2 flex flex-row items-center gap-2 bg-slate-100 rounded-lg shadow-lg">
-                        <div className='w-max px-1 py-1 grow'>
-                            <h3 className='capitalize'>{`${months[day.getMonth()]}, ${day.getFullYear()}`}</h3>
-                            <h2 className='py-1 text-4xl font-semibold uppercase'>{`${days[day.getDay()]} ${day.getDate()}`}</h2>
+            <Main>
+                {/* Calendar */}
+                <div className="box">
+                    <div className='w-full px-2 py-2 flex items-center gap-4'>
+                        <div className='px-1 py-1 flex flex-col grow'>
+                            <h3 className='px-1 text-lg text-slate-700 capitalize'>{`${months[day.getMonth()]}, ${day.getFullYear()}`}</h3>
+                            <h2 className='px-1 text-4xl font-semibold uppercase'>{`${days[day.getDay()]} ${day.getDate()}`}</h2>
                         </div>
                         <div className="input-date">
                             <button className='absolute left-0 top-0 w-full h-full rounded-lg bg-red-500 text-slate-100'>
@@ -54,11 +56,12 @@ export const Calendar = () => {
                             <input type="date" defaultValue={convertDateToString(day)} onChange={handleDayTasks}/>
                         </div>
                     </div>
-                    <ul className='py-1 grow grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-2 lg:gap-4'>
-                        {dayTasks.map(item => <TaskItem key={item.id} item={item} />)}
-                    </ul>
                 </div>
-            </main>
+                {/* Tasks day */}
+                <ul className='grow grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-3 gap-4'>
+                    {dayTasks.map(item => <TaskItem key={item.id} item={item} />)}
+                </ul>
+            </Main>
         </>
     )
 }

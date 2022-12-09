@@ -4,6 +4,7 @@ import { useUserContext } from '../context/UserContext'
 import { getTasksDb } from '../service/firestore'
 import { Header } from '../components/Header'
 import { TaskItem } from '../components/TaskItem'
+import { Main } from '../components/Main'
 
 const NavbarLink = ({children,...props}) => {
     return (
@@ -38,18 +39,16 @@ export const Home = () => {
     return (
         <>
             <Header />
-            <main className='w-full px-2 py-2 flex flex-col grow'>
-                <div className='container mx-auto flex flex-col gap-2'>
-                    {/* Status filter */}
-                    <div className='py-2 flex items-center gap-2'>
-                        {[["","pending"],["completed","completed"],["all","all"]].map((e,i) => <NavbarLink key={i} to={`/${e[0]}`}>{e[1]}</NavbarLink>)}
-                    </div>
-                    {/* Tasks list */}
-                    <ul className='py-1 grow grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-2 lg:gap-4'>
-                        {taskList(completed === undefined ? pendingTasks : completed === "completed" ? completedTasks : allTasks)}
-                    </ul>
+            <Main>
+                {/* Status filter */}
+                <div className='px-1 py-1 flex items-center gap-2'>
+                    {[["","pending"],["completed","completed"],["all","all"]].map((e,i) => <NavbarLink key={i} to={`/${e[0]}`}>{e[1]}</NavbarLink>)}
                 </div>
-            </main>
+                {/* Tasks list */}
+                <ul className='grow grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-3 gap-2'>
+                    {taskList(completed === undefined ? pendingTasks : completed === "completed" ? completedTasks : allTasks)}
+                </ul>
+            </Main>
         </>
     )
 }
