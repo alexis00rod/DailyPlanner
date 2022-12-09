@@ -1,7 +1,7 @@
 import { app } from './key'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence,browserLocalPersistence } from 'firebase/auth'
 
-const auth = getAuth(app)
+export const auth = getAuth(app)
 
 // Funcion para crear usuario usando email y contraseña
 export const signup = ({email,password}) => {

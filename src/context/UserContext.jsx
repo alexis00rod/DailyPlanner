@@ -5,7 +5,7 @@ const UserContext = createContext()
 export const useUserContext = () => useContext(UserContext)
 
 export const UserProvider = ({children}) => {
-    const [userLogged, setUserLogged] = useState(null)
+    const [userLogged, setUserLogged] = useState()
 
     useEffect(() => {
         stateAuth(setUserLogged)
