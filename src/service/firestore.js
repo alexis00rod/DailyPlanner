@@ -7,6 +7,8 @@ const db = getFirestore(app)
 const userRef = (user) => doc(db,"users",user)
 const tasksUserRef = (user) => collection(db,"users",user,"tasks")
 const taskRef = (user,id) => doc(db,"users",user,"tasks",id)
+const allTasksRef = (user,by,order) => query(tasksUserRef(user),orderBy(by,order))
+const categoryTasksRef = (user,category,by,order) => query(tasksUserRef(user),where("category","==",category),orderBy(by,order))
 
 // Funcion para agregar usuario a la base de datos
 export const addUserToDb = (user) => {
@@ -20,21 +22,44 @@ export const addTask = (user,task) => {
     addDoc(tasksUserRef(email),task)
 }
 
-// Funcion para obtener las tareas desde la base de datos
-export const getTasksDb = (user,by,order,set,status) => {
+// Funcion para obtener todas las tareas
+export const getAllTasks = (user,by,order,set) => {
     const {email} = user
-    const ref = status === undefined 
-        ?   query(tasksUserRef(email),where("completed","==",false),orderBy(by,order)) 
-        :   status === "completed"
-            ?    query(tasksUserRef(email),where("completed","==",true),orderBy(by,order)) 
-            :   query(tasksUserRef(email),orderBy(by,order)) 
-
-    onSnapshot(ref,snapshot => {
+    onSnapshot(allTasksRef(email,by,order),snapshot => {
         set(snapshot.docs.map(e => ({
             id: e.id,
             ...e.data()
         })))
     })
+}
+
+// Funcion para obtener tareas filtradas por categoria
+export const getCategoryTasks = (user,category,by,order,set) => {
+    const {email} = user
+    onSnapshot(categoryTasksRef(email,category,by,order),snapshot => {
+        set(snapshot.docs.map(e => ({
+            id: e.id,
+            ...e.data()
+        })))
+    })
+}
+
+// Funcion para obtener las tareas desde la base de datos
+export const getTasksDb = (user,by,order,category,status,set) => {
+    // const {email} = user
+    // // const {email} = user
+    // // const ref = status === undefined 
+    // //     ?   query(tasksUserRef(email),where("completed","==",false),orderBy(by,order)) 
+    // //     :   status === "completed"
+    // //         ?    query(tasksUserRef(email),where("completed","==",true),orderBy(by,order)) 
+    // //         :   query(tasksUserRef(email),orderBy(by,order)) 
+
+    // onSnapshot(tasksRef(email,by,order),snapshot => {
+    //     set(snapshot.docs.map(e => ({
+    //         id: e.id,
+    //         ...e.data()
+    //     })))
+    // })
 }
 
 export const getTasksCount = ({email},set) => {

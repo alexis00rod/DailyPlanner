@@ -1,54 +1,84 @@
 import { useState,useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { useUserContext } from '../context/UserContext'
-import { getTasksDb } from '../service/firestore'
+import { getAllTasks, getCategoryTasks } from '../service/firestore'
 import { Header } from '../components/Header'
-import { TaskItem } from '../components/TaskItem'
 import { Main } from '../components/Main'
-
-const NavbarLink = ({children,...props}) => {
-    return (
-        <NavLink 
-        {...props}
-        className={({isActive}) => `px-4 h-8 flex items-center capitalize font-semibold duration-150 rounded-full ${isActive ? "bg-cyan-500 text-slate-100 hover:bg-cyan-600" : "bg-transparent text-slate-600 hover:text-slate-900"}`}
-        >
-            {children}
-        </NavLink>
-    )
-}
-
-const taskList = (tasks) => tasks.map(item => <TaskItem key={item.id} item={item} />)
+import { TaskItem } from '../components/TaskItem'
 
 export const Home = () => {
     const {userLogged} = useUserContext()
-    const {completed} = useParams()
-
+    const {category} = useParams()
     const [allTasks, setAllTasks] = useState([])
-    const [pendingTasks, setPendingTasks] = useState([])
-    const [completedTasks, setCompletedTasks] = useState([])
+    const [workTasks, setWorkTasks] = useState([])
+    const [personalTasks, setPersonalTasks] = useState([])
+    const [otherTasks, setOtherTasks] = useState([])
+    const [statusTasks, setStatusTasks] = useState(false)
+
+    const tasksList = (tasks,completed) => {
+        const tasksFilter = tasks.filter(e => e.completed === completed)
+        return tasksFilter.map(item => <TaskItem key={item.id} item={item} />)
+    }
 
     useEffect(() => {
-        completed === undefined
-        ?   getTasksDb(userLogged,"created","desc",setPendingTasks,completed)
-        :   completed === "completed"
-            ?   getTasksDb(userLogged,"created","desc",setCompletedTasks,completed)
-            :   getTasksDb(userLogged,"created","desc",setAllTasks,completed)
+        getAllTasks(userLogged,"created","desc",setAllTasks)
+        getCategoryTasks(userLogged,"work","created","desc",setWorkTasks)
+        getCategoryTasks(userLogged,"personal","created","desc",setPersonalTasks)
+        getCategoryTasks(userLogged,"other","created","desc",setOtherTasks)
+    },[])
 
-    },[userLogged,completed])
-
-    return (
-        <>
+    return <>
             <Header />
             <Main>
-                {/* Status filter */}
-                <div className='px-1 py-1 flex items-center gap-2'>
-                    {[["","pending"],["completed","completed"],["all","all"]].map((e,i) => <NavbarLink key={i} to={`/${e[0]}`}>{e[1]}</NavbarLink>)}
+                {/* Filter category */}
+                <div className='px-1 py-1 grid grid-cols-2 gap-2 sm:grid-cols-4'>
+                    <NavLink to='/' 
+                    className={({isActive}) => isActive
+                        ?   "h-24 flex flex-col items-center justify-center text text-slate-100 font-semibold bg-rose-300 rounded-lg"
+                        :   "h-24 flex flex-col items-center justify-center text text-rose-300 font-semibold bg-slate-100 border-2 border-rose-300 rounded-lg"}>
+                        Tasks <span className='text-3xl'>{allTasks.length}</span>
+                    </NavLink>
+                    <NavLink to='/work' 
+                    className={({isActive}) => isActive
+                        ?   "h-24 flex flex-col items-center justify-center text text-slate-100 font-semibold bg-violet-300 rounded-lg"
+                        :   "h-24 flex flex-col items-center justify-center text text-violet-300 font-semibold bg-slate-100 border-2 border-violet-300 rounded-lg"}>
+                        Work <span className='text-3xl'>{workTasks.length}</span>
+                    </NavLink>
+                    <NavLink to='/personal' 
+                    className={({isActive}) => isActive
+                        ?   "h-24 flex flex-col items-center justify-center text text-slate-100 font-semibold bg-yellow-300 rounded-lg"
+                        :   "h-24 flex flex-col items-center justify-center text text-yellow-300 font-semibold bg-slate-100 border-2 border-yellow-300 rounded-lg"}>
+                        Personal <span className='text-3xl'>{personalTasks.length}</span>
+                    </NavLink>
+                    <NavLink to='/other' 
+                    className={({isActive}) => isActive
+                        ?   "h-24 flex flex-col items-center justify-center text text-slate-100 font-semibold bg-teal-300 rounded-lg"
+                        :   "h-24 flex flex-col items-center justify-center text text-teal-300 font-semibold bg-slate-100 border-2 border-teal-300 rounded-lg"}>
+                        Other <span className='text-3xl'>{otherTasks.length}</span>
+                    </NavLink>
+                </div>
+                {/* Filter status */}
+                <div className='w-full px-1 py-1 flex items-center gap-2'>
+                    <div className='input-radio'>
+                        <input type="radio" name="priority" id="low" className="input-radio" onChange={() => setStatusTasks(false)} defaultChecked/>
+                        <label htmlFor="low" className="">pending</label>
+                    </div>
+                    <div className='input-radio'>
+                        <input type="radio" name="priority" id="medium" className="input-radio" onChange={(e) => setStatusTasks(true)}/>
+                        <label htmlFor="medium" className="">finish</label>
+                    </div>
                 </div>
                 {/* Tasks list */}
-                <ul className='grow grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-3 gap-2'>
-                    {taskList(completed === undefined ? pendingTasks : completed === "completed" ? completedTasks : allTasks)}
+                <ul className='px-1 py-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-3 gap-2'>
+                    {category === undefined
+                    ?   tasksList(allTasks,statusTasks)
+                    :   category === "work"
+                        ?   tasksList(workTasks,statusTasks)
+                        :   category === "personal"
+                            ?   tasksList(personalTasks,statusTasks)
+                            :   tasksList(otherTasks,statusTasks)
+                    }
                 </ul>
             </Main>
         </>
-    )
 }

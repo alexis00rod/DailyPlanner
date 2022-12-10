@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Routes>
                     <Route path='/' element={<App />}>
                         <Route path='/' element={<Home />}></Route>
-                        <Route path='/:completed' element={<Home />}></Route>
+                        <Route path='/:category' element={<Home />}></Route>
                         <Route path='task/:id' element={<TaskView />} />
                         <Route path='add-task' element={<AddTasks />}></Route>
                         <Route path='calendar' element={<Calendar />} ></Route>
