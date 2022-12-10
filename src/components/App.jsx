@@ -11,13 +11,14 @@ export const App = () => {
     },[location])
 
     return (
-        <div className='w-full h-screen flex flex-col bg-slate-200 text-slate-700'>
+        <section className='app'>
+            {/* Protected routes */}
             <ProtectedRoutes>
-                <section className='flex flex-col grow overflow-y-scroll'>
-                    <Outlet />
-                    <Navbar />
-                </section>
+                {/* App */}
+                <Outlet />
+                {/* Navbar */}
+                <Navbar />
             </ProtectedRoutes>
-        </div>
+        </section>
     )
 }

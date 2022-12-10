@@ -1,22 +1,18 @@
 import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const NavbarLink = ({children,...props}) => {
-    return (
-        <NavLink 
-        {...props}
-        className={({isActive}) => isActive ? "px-1 w-full h-16 flex flex-col items-center justify-center duration-150 text-slate-900" : "px-1 w-full h-16 flex flex-col items-center justify-center duration-150 text-slate-600  hover:text-slate-900"}
-        >
-            {children}
-        </NavLink>
-    )
+    return <NavLink {...props} 
+    className={({isActive}) => `px-1 w-full h-16 flex flex-col items-center justify-center duration-150 ${isActive ? "text-slate-900" : "text-slate-600  hover:text-slate-900"} `}>
+                    {children}
+            </NavLink>
 }
 
 export const Navbar = () => {
     const location = useLocation()
 
     return (
-        <nav className='w-full px-1 py-1 flex flex-row items-center bg-slate-100'>
-            <ul className='container mx-auto px-1 flex flex-row items-end grow'>
+        <nav className='w-full h-max px-1 py-1 flex flex-row items-center bg-slate-100'>
+            <ul className='w-full max-w-screen-lg mx-auto px-1 flex flex-row items-end grow'>
                 <li className='px-1 flex flex-row items-center justify-center grow'>
                     <NavbarLink to='/'>
                         <i className="fa-solid fa-house text-xl"></i>
