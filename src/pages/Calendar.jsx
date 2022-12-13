@@ -25,10 +25,16 @@ const convertStringToDate = (value) => {
     return new Date(year,month,day)
 }
 
+const tasksList = (tasks,completed) => {
+    const tasksFilter = tasks.filter(e => e.completed === completed)
+    return tasksFilter.map(item => <TaskItem key={item.id} item={item} />)
+}
+
 export const Calendar = () => {
     const {userLogged} = useUserContext()
     const [day, setDay] = useState(new Date())
     const [dayTasks, setDayTasks] = useState([])
+    const [statusTasks, setStatusTasks] = useState(false)
 
     const handleDayTasks = ({target:{value}}) => {
         setDay(convertStringToDate(value))
@@ -57,9 +63,20 @@ export const Calendar = () => {
                         </div>
                     </div>
                 </div>
+                {/* Filter status */}
+                <div className='w-full px-1 py-1 flex items-center gap-2'>
+                    <div className='input-radio'>
+                        <input type="radio" name="status" id="pending" className="input-radio" onChange={() => setStatusTasks(false)} defaultChecked/>
+                        <label htmlFor="pending" className="">Pending</label>
+                    </div>
+                    <div className='input-radio'>
+                        <input type="radio" name="status" id="finish" className="input-radio" onChange={() => setStatusTasks(true)}/>
+                        <label htmlFor="finish" className="">Finish</label>
+                    </div>
+                </div>
                 {/* Tasks day */}
                 <ul className='grow grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-3 gap-4'>
-                    {dayTasks.map(item => <TaskItem key={item.id} item={item} />)}
+                    {tasksList(dayTasks,statusTasks)}
                 </ul>
             </Main>
         </>
