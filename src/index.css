@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @apply font-poppins;
+}
 
 /* App */
 .app {
@@ -25,8 +31,15 @@
 
 /* Section */
 .section {
-    @apply w-full h-full px-2 py-2 flex flex-col gap-2 bg-slate-100 rounded-lg shadow-lg;
+    @apply w-full h-full px-2 py-2 flex gap-2 bg-slate-100 rounded-lg shadow-lg;
 }
+.section-col{
+    @apply flex-col;
+}
+.section-row{
+    @apply flex-row;
+}
+
 
 /* Input date */
 .input-date {
@@ -56,7 +69,13 @@
     @apply file:h-9 file:px-4 file:bg-slate-600 file:text-sm file:text-slate-100 file:font-semibold file:border-0 file:rounded-full file:cursor-pointer file:duration-150 file:hover:bg-slate-900;
 }
 
+/* Input text */
+.input-text {
+    @apply  h-10 px-2 grow bg-transparent border-2 border-slate-400 rounded-lg duration-300 focus:border-teal-500 outline-none;
+}
+
 /* Debug */
 .debug {
-    border: 1px solid crimson;
+    /* border: 1px solid crimson; */
+    @apply border border-red-500;
 }
