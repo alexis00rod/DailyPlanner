@@ -11,7 +11,7 @@ export const Header = ({title}) => {
             <div className="w-full max-w-screen-lg mx-auto flex items-center gap-2">
                 <div className='px-1 py-1'>
                     {location.pathname === "/" || location.pathname === "/work" || location.pathname === "/personal" || location.pathname === "/other"
-                    ?   <Link to="/profile" className="w-10 h-10 flex flex-none flex-row items-center justify-center flex-none border-2 border-slate-600 rounded-full duration-150 overflow-hidden hover:border-slate-500">
+                    ?   <Link to="/profile" className="w-10 h-10 flex flex-none flex-row items-center justify-center border-2 border-slate-600 rounded-full duration-150 overflow-hidden hover:border-slate-500">
                             <img src={userLogged.photo} alt={userLogged.name} className='w-full h-full object-cover'/>
                         </Link>
                     : <button className='w-10 h-10 flex flex-none flex-row items-center justify-center text-slate-600 duration-300 hover:text-slate-900' onClick={() => navigate(-1)}><i className="fa-solid fa-arrow-left"></i></button>}

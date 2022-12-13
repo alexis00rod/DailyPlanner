@@ -44,24 +44,6 @@ export const getCategoryTasks = (user,category,by,order,set) => {
     })
 }
 
-// Funcion para obtener las tareas desde la base de datos
-export const getTasksDb = (user,by,order,category,status,set) => {
-    // const {email} = user
-    // // const {email} = user
-    // // const ref = status === undefined 
-    // //     ?   query(tasksUserRef(email),where("completed","==",false),orderBy(by,order)) 
-    // //     :   status === "completed"
-    // //         ?    query(tasksUserRef(email),where("completed","==",true),orderBy(by,order)) 
-    // //         :   query(tasksUserRef(email),orderBy(by,order)) 
-
-    // onSnapshot(tasksRef(email,by,order),snapshot => {
-    //     set(snapshot.docs.map(e => ({
-    //         id: e.id,
-    //         ...e.data()
-    //     })))
-    // })
-}
-
 export const getTasksCount = ({email},set) => {
     onSnapshot(tasksUserRef(email), snapshot => {
         set(snapshot.docs.map(e => ({id: e.id,...e.data()})))

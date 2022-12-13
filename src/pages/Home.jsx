@@ -48,12 +48,12 @@ export const Home = () => {
                 {/* Filter status */}
                 <div className='w-full px-1 py-1 flex items-center gap-2'>
                     <div className='input-radio'>
-                        <input type="radio" name="priority" id="low" className="input-radio" onChange={() => setStatusTasks(false)} defaultChecked/>
-                        <label htmlFor="low" className="">pending</label>
+                        <input type="radio" name="status" id="pending" className="input-radio" onChange={() => setStatusTasks(false)} defaultChecked/>
+                        <label htmlFor="pending">Pending</label>
                     </div>
                     <div className='input-radio'>
-                        <input type="radio" name="priority" id="medium" className="input-radio" onChange={() => setStatusTasks(true)}/>
-                        <label htmlFor="medium" className="">finish</label>
+                        <input type="radio" name="status" id="finish" className="input-radio" onChange={() => setStatusTasks(true)}/>
+                        <label htmlFor="finish">Finish</label>
                     </div>
                 </div>
                 {/* Tasks list */}
