@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Main } from '../components/Main'
-import { Message } from '../components/Message'
 import { login } from '../service/auth'
-
 import formImage from '../assets/form-image.png'
 
 export const Login = () => {
     const [userToLogin, setUserToLogin] = useState()
-    const [errorMessage, setErrorMessage] = useState()
+    const [loginErrorMessage, setLoginErrorMessage] = useState()
     const navigate = useNavigate()
 
     const handleUserToLogin = ({target: {name,value}}) => {
@@ -17,12 +15,12 @@ export const Login = () => {
 
     const loginUser = async e => {
         e.preventDefault()
-        setErrorMessage("")
+        setLoginErrorMessage("")
         try {
             await login(userToLogin)
             navigate('/')
         } catch (err) {
-            setErrorMessage(err.code)
+            setLoginErrorMessage(`${err.code.replace("auth/","")}`)
         }
     }
 
@@ -43,6 +41,11 @@ export const Login = () => {
                     <div className='w-full px-1 py-1 flex flex-col gap-2' onSubmit={loginUser}>
                         {/* Login form */}
                         <form className='w-full flex flex-col gap-2'>
+                            {/* Signup error message */}
+                            {loginErrorMessage && 
+                            <div className='w-full mb-1 px-1 py-1'>
+                                <p className='px-2 py-2 text-red-500 font-semibold bg-red-200 border-2 border-red-500 rounded-lg'>Error: <span className='font-normal'>{loginErrorMessage}</span></p>
+                            </div>}
                             {/* Login email */}
                             <div className='w-full mb-1 px-1 py-1 flex flex-col'>
                                 <label htmlFor="email" className="px-1 font-medium">Email</label>
@@ -62,7 +65,7 @@ export const Login = () => {
                                 <button type='submit' className='w-full h-10 mx-auto px-2 flex items-center justify-center text-slate-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600'>Login</button>
                             </div>
                         </form>
-                        {/* Go to login */}
+                        {/* Go to signup */}
                         <div className='px-2 h-16 flex items-center'>
                             <h4 className='px-1 py-2 w-max flex items-center gap-1'>¿No tienes cuenta?<Link to='/signup' className='w-max px-1 flex items-center text-teal-500 duration-300 hover:text-teal-600'>Crear cuenta</Link></h4>
                         </div>

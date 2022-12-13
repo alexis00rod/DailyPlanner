@@ -12,11 +12,8 @@ export const App = () => {
 
     return (
         <section className='app'>
-            {/* Protected routes */}
             <ProtectedRoutes>
-                {/* App */}
                 <Outlet />
-                {/* Navbar */}
                 <Navbar />
             </ProtectedRoutes>
         </section>

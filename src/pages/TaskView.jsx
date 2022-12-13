@@ -28,7 +28,7 @@ export const TaskView = () => {
 
     const sendEditTask = (e) => {
         e.preventDefault()
-        editTask(task)
+        editTask(userLogged,task)
     }
 
     if(!loading) return <Loader />
@@ -36,7 +36,7 @@ export const TaskView = () => {
     return <>
             <Header />
             <Main>
-                <form className="section" onChange={handleEditTask} onSubmit={sendEditTask}>
+                <form className="section section-col" onChange={handleEditTask} onSubmit={sendEditTask}>
                     {/* Task title */}
                     <input type="text" name="title" className="w-full mb-1 px-1 py-1 text-3xl bg-transparent outline-none" defaultValue={task.title} placeholder="Title..." />
                     {/* Task description */}

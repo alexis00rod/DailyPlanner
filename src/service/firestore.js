@@ -88,10 +88,12 @@ export const viewTask = async ({email},id) => {
 } 
  
 // Funcion para editar nota
-export const editTask = async ({id,title,description}) => {
-    await updateDoc(taskRef("alexis00rodrigo@gmail.com",id),{
-        title: title,
-        description: description
+export const editTask = async (user,task) => {
+    const {id,title,description} = task
+    const {email} = user
+    await updateDoc(taskRef(email,id),{
+        title,
+        description
     })
 }
 

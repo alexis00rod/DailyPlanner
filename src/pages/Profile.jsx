@@ -22,7 +22,7 @@ export const Profile = () => {
             <Main>
                 {/* User info */}
                 <div className="box">
-                    <img src={userLogged.photo} alt={userLogged.displayName} className="mx-1 my-1 w-14 h-14 border-2 border-slate-600 rounded-full object-cover" />
+                    <img src={userLogged.photoURL} alt={userLogged.displayName} className="mx-1 my-1 w-14 h-14 border-2 border-slate-600 rounded-full object-cover" />
                     <div className="px-2 py-2">
                         <h2 className="text-lg font-medium">{userLogged.displayName}</h2>
                         <h3 className="text-sm text-slate-500">{userLogged.email}</h3>

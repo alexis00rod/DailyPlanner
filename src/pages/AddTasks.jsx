@@ -53,7 +53,7 @@ export const AddTasks = () => {
         <>
             <Header title="New task" />
             <Main>
-                <form className='section' onSubmit={sendTask}>
+                <form className='section section-col' onSubmit={sendTask}>
                     {/* Task title */}
                     <div className='px-1 py-1 flex flex-col gap-1'>
                         <label htmlFor="taskTitle" className="px-2 py-1 text-sm font-semibold cursor-pointer">Task title</label>

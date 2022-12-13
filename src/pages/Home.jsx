@@ -35,12 +35,12 @@ export const Home = () => {
     },[])
 
     return <>
-            <Header />
+            <Header title={`Hi! ${userLogged.displayName}`} />
             <Main>
                 {/* Filter category */}
                 <div className='px-1 py-1 grid grid-cols-2 gap-2 sm:grid-cols-4'>
-                    {[["/","Tasks",allTasks],["/work","Work",workTasks],["/personal","Personal",personalTasks],["/other","Other",otherTasks]].map(item => (
-                        <NavbarLink to={item[0]}>
+                    {[["/","Tasks",allTasks],["/work","Work",workTasks],["/personal","Personal",personalTasks],["/other","Other",otherTasks]].map((item,i) => (
+                        <NavbarLink to={item[0]} key={i}>
                             {item[1]} <span className='text-3xl'>{item[2].length}</span>
                         </NavbarLink>
                     ))}
