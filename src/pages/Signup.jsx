@@ -2,33 +2,74 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Main } from '../components/Main'
-import { Message } from '../components/Message'
 import { signup } from '../service/auth'
-import { addUserToDb } from '../service/firestore'
-import formImage from '../assets/form-image.png'
 import { getDefaultProfilePhotoURL, uploadUserPhoto } from '../service/storage'
+import formImage from '../assets/form-image.png'
 
 export const Signup = () => {
+    const navigate = useNavigate()
     const [signupStep, setSignupStep] = useState(1)
-    const [signupUserPhoto, setSignupUserPhoto] = useState(false)
+    const [signupErrorMessage, setSignupErrorMessage] = useState()
+    const [userToSignup, setUserToSignup] = useState({})
 
+    // Expresiones regulares para validar formulario
+    const regexp = {
+        name: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+        password: /^.{4,12}$/,
+        email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    }
+
+    // Funcion para validar email y password
+    const validateEmailPassword = async e => {
+        e.preventDefault()
+        const {email,password,confirmpassword} = userToSignup
+
+        // Valido email
+        let emailTest = regexp.email.test(email)
+        // Valido contraseña
+        let passwordTest = regexp.password.test(password) && password === confirmpassword
+        // Si email es invalido enviar error
+        !emailTest && setSignupErrorMessage("Email invalido")
+        // Si contraseña es invalida enviar error
+        !passwordTest && setSignupErrorMessage("Contraseñas no coinciden")
+        // Si ambos son validos pasar a paso 2
+        emailTest && passwordTest && setSignupStep(2)
+    }
+
+    // Funcion para manejar inputs
+    const handleInputs = ({target:{name,value}}) => {
+        setUserToSignup({
+            ...userToSignup,
+            [name]:value
+        })
+    }
+
+    // Funcion para cambiar foto de perfil
     const handleSignupUserPhoto = ({target:{files}}) => {
-        setSignupUserPhoto(false)
-        uploadUserPhoto(files[0],setSignupUserPhoto)
+        const {email} = userToSignup
+
+        setUserToSignup({...userToSignup,photoURL:false})
+
+        uploadUserPhoto(files[0],email)
+        .then(resp => setUserToSignup({...userToSignup,photoURL:resp}))
     }
 
-    const handleSignupEmailPassword = e => {
+    // Funcion para
+    const signupProfile = async e => {
         e.preventDefault()
-        setSignupStep(2)
-    }
-
-    const handleSignupProfile = e => {
-        e.preventDefault()
-        setSignupStep(1)
+        const {email,password,displayName,photoURL} = userToSignup
+        setSignupErrorMessage("")
+        try {
+            await signup(email,password,displayName,photoURL)
+            navigate('/login')
+        } catch (err) {
+            setSignupErrorMessage(`${err.code.replace("auth/","")}`)
+        }
     }
 
     useEffect(() => {
-        getDefaultProfilePhotoURL(setSignupUserPhoto)
+        getDefaultProfilePhotoURL()
+        .then(resp => setUserToSignup({...userToSignup,photoURL:resp}))
     },[])
 
     return (
@@ -69,24 +110,29 @@ export const Signup = () => {
                         {/* Signup form */}
                         <form className='w-full flex flex-col gap-2'>
                             {/* Signup form steps navigation */}
-                            <div className='w-full h-56'>
+                            <div className='w-full'>
                                 {signupStep === 1
                                 // Step 1
                                 ?   <>
+                                        {/* Signup error message */}
+                                        {signupErrorMessage && 
+                                        <div className='w-full mb-1 px-1 py-1'>
+                                            <p className='px-2 py-2 text-red-500 font-semibold bg-red-200 border-2 border-red-500 rounded-lg'>Error: <span className='font-normal'>{signupErrorMessage}</span></p>
+                                        </div>}
                                         {/* Signup email */}
                                         <div className='w-full mb-1 px-1 py-1 flex flex-col'>
                                             <label htmlFor="email" className='px-1 font-medium'>Email</label>
-                                            <input type="email" name="email" id='email'  className='input-text' />
+                                            <input type="email" name="email" id='email'  className='input-text' onChange={handleInputs} />
                                         </div>
                                         {/* Signup password */}
                                         <div className='w-full mb-1 px-1 py-1 flex flex-col'>
-                                            <label htmlFor="password1" className='px-1 font-medium'>Contraseña</label>
-                                            <input type="password" name="password1"  className='input-text' />
+                                            <label htmlFor="password" className='px-1 font-medium'>Contraseña</label>
+                                            <input type="password" name="password"  className='input-text' onChange={handleInputs}/>
                                         </div>
                                         {/* Signup confirm password */}
                                         <div className='w-full mb-1 px-1 py-1 flex flex-col'>
-                                            <label htmlFor="password2" className='px-1 font-medium'>Confirmar contraseña</label>
-                                            <input type="password" name="password2" className='input-text' />
+                                            <label htmlFor="confirmpassword" className='px-1 font-medium'>Confirmar contraseña</label>
+                                            <input type="password" name="confirmpassword" className='input-text' onChange={handleInputs}/>
                                         </div>
                                     </>
                                 // Step 2
@@ -94,12 +140,12 @@ export const Signup = () => {
                                         {/* Signup profile photo */}
                                         <div className='w-full mb-1 px-1 py-1 flex flex-col'>
                                             <span className='px-1 font-medium'>Foto de perfil</span>
-                                                {signupUserPhoto 
+                                                {userToSignup.photoURL 
                                                 ?   <div className='w-full px-1 py-1 flex '>
                                                         <label htmlFor="photoURL" className='w-20 h-20 bg-teal-500 px-1 py-1 rounded-full overflow-hidden duration-300 cursor-pointer hover:bg-teal-600'>
-                                                            <img src={signupUserPhoto} alt="" className='w-full h-full rounded-full object-cover' />
+                                                            <img src={userToSignup.photoURL} alt="" className='w-full h-full rounded-full object-cover' />
                                                         </label>
-                                                        <input type="file" name='photoURL' id='photoURL' className='hidden' onChange={handleSignupUserPhoto} />
+                                                        <input type="file" name='photoURL' id='photoURL' className='hidden' onChange={handleSignupUserPhoto}/>
                                                     </div>
                                                 :   <div className='w-full px-1 py-1 flex'>
                                                         <div className="w-20 h-20 inline-block text-teal-500 border-4 rounded-full spinner-border animate-spin "></div>
@@ -107,22 +153,23 @@ export const Signup = () => {
                                         </div>
                                         {/* Signup name */}
                                         <div className='w-full mb-1 px-1 py-1 flex flex-col'>
-                                            <label htmlFor="name" className='px-1 font-medium'>Nombre</label>
-                                            <input type="text" name="name" id='name' placeholder='Nombre' className='input-text' />
+                                            <label htmlFor="displayName" className='px-1 font-medium'>Nombre</label>
+                                            <input type="text" name="displayName" id="displayName" placeholder="Nombre" className='input-text' onChange={handleInputs}/>
                                         </div>
                                     </>}
                             </div>
                             {/* Signup button step */}
                             <div className='w-full px-1 py-1'>
                                 {signupStep === 1
-                                ?   <button className='w-full h-10 mx-auto px-2 flex items-center justify-center text-slate-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600' onClick={handleSignupEmailPassword}>Continuar</button>
-                                :   <button className='w-full h-10 mx-auto px-2 flex items-center justify-center text-slate-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600' onClick={handleSignupProfile}>Finalizar</button>}
+                                // Funcion para registrar email y password
+                                ?   <button className='w-full h-10 mx-auto px-2 flex items-center justify-center text-slate-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600' onClick={validateEmailPassword}>Continuar</button>
+                                :   <button className='w-full h-10 mx-auto px-2 flex items-center justify-center text-slate-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600' onClick={signupProfile}>Finalizar</button>}
                             </div>
                         </form>
-                    </div>
-                    {/* Back login */}
-                    <div className='px-2 h-16 flex items-center'>
-                        <h4 className='px-1 py-2 w-max flex items-center gap-1'>¿Ya tienes una cuenta?<Link to='/login' className='w-max px-1 flex items-center text-teal-500 duration-300 hover:text-teal-600'>Iniciar sesion</Link></h4>
+                        {/* Back to login */}
+                        <div className='px-2 h-16 flex items-center'>
+                            <h4 className='px-1 py-2 w-max flex items-center gap-1'>¿Ya tienes cuenta?<Link to='/login' className='w-max px-1 flex items-center text-teal-500 duration-300 hover:text-teal-600'>Iniciar sesion</Link></h4>
+                        </div>
                     </div>
                 </div>
             </div>
