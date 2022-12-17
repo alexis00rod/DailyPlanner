@@ -4,78 +4,67 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    @apply font-poppins;
-}
+body { @apply font-poppins bg-slate-200;}
 
 /* App */
-.app {
-    @apply w-full max-h-screen h-screen flex flex-col bg-slate-200 text-slate-700;
-}
+.app { @apply w-full h-screen flex flex-col;}
+
+/* Navbar */
+.navbar { @apply w-full h-max py-1 flex items-center bg-slate-100;}
+.navbar-wrapper { @apply w-full max-w-screen-lg mx-auto py-1 flex justify-between;}
+.navbar-item { @apply w-full flex items-center justify-center;}
+.navbar-link { @apply px-1 w-full h-16 flex flex-col items-center justify-center duration-300 text-slate-800/75 hover:text-slate-800;}
+.navbar-btn { @apply w-16 h-16 flex flex-col items-center justify-center flex-none text-slate-100 bg-teal-500 rounded-full duration-300 hover:bg-teal-600;}
+
+/* Header */
+.header { @apply sticky top-0 left-0 w-full h-max z-20 px-1 py-1 flex items-center gap-2 lg:px-4 bg-slate-100;}
+.header-wrapper { @apply  header w-full max-w-screen-lg mx-auto px-1 py-1 flex items-center gap-2;}
 
 /* Main */
-.main-container {
-    @apply w-full px-2 py-2 bg-slate-200 flex flex-col grow overflow-y-scroll;
-}
-.main-form {
-    @apply w-full px-2 py-2 bg-slate-200 h-screen flex items-center justify-center;
-}
-.main-wrapper {
-    @apply w-full max-w-screen-lg mx-auto px-1 py-1 flex flex-col gap-2 grow;
-}
+.main-container { @apply w-full px-2 py-2 flex flex-col grow;overflow: overlay;}
+.main-container::-webkit-scrollbar {@apply w-3;}
+.main-container::-webkit-scrollbar-thumb {@apply bg-teal-500 rounded-full;}
+
+.main-form { @apply w-full px-2 py-2 h-screen flex items-center justify-center;}
+.main-wrapper { @apply w-full max-w-screen-lg mx-auto px-1 py-1 flex flex-col gap-2 grow;}
 
 /* Box */
-.box {
-    @apply w-full px-2 py-2 bg-slate-100 rounded-lg shadow-lg;
-}
+.box { @apply w-full px-2 py-2 bg-slate-100 rounded-lg shadow-lg}
 
 /* Section */
-.section {
-    @apply w-full h-full px-2 py-2 flex gap-2 bg-slate-100 rounded-lg shadow-lg;
-}
-.section-col{
-    @apply flex-col;
-}
-.section-row{
-    @apply flex-row;
-}
+.section { @apply w-full h-full px-2 py-2 flex gap-2 bg-slate-100 rounded-lg shadow-lg;}
+.section-col{ @apply flex-col;}
+.section-row{ @apply flex-row;}
 
+/* Card */
+.card { @apply flex flex-col bg-slate-100 rounded-lg shadow-lg overflow-hidden;}
+.card-body { @apply w-full px-1 pt-2 pb-1 flex flex-col;}
+.card-cta { @apply w-full px-2 pb-2 flex gap-2 items-center justify-end;}
+
+/* Button */
+.btn { @apply h-9 flex items-center justify-center flex-none duration-300;}
+.btn-navigate { @apply  w-9 text-slate-700 duration-300 hover:text-slate-900;}
+.btn-photo { @apply w-9 border-2 border-slate-700 rounded-full duration-300 duration-300 hover:border-slate-900 overflow-hidden;}
+.btn-toggle { @apply w-10 rounded-lg duration-300;}
+.btn-delete { @apply bg-red-500 text-slate-100 duration-300 hover:bg-red-600;}
+.btn-finish { @apply bg-transparent text-green-500 border-2 border-green-500 hover:bg-green-500/25;}
+.btn-finish-active { @apply bg-green-500 text-slate-100 hover:bg-green-600 ;}
 
 /* Input date */
-.input-date {
-    @apply relative w-10 h-10 inline-block rounded-lg;
-}
-.input-date input {
-    @apply absolute left-0 top-0 w-full h-full opacity-0;
-}
-.input-date input[type="date"]::-webkit-calendar-picker-indicator {
-    @apply absolute top-0 left-0 w-full m-0 p-0 h-full cursor-pointer;
-}
+.input-date { @apply relative w-10 h-10 inline-block rounded-lg;}
+.input-date input { @apply absolute left-0 top-0 w-full h-full opacity-0;}
+.input-date input[type="date"]::-webkit-calendar-picker-indicator { @apply absolute top-0 left-0 w-full m-0 p-0 h-full cursor-pointer;}
 
 /* Input radio */
-.input-radio label {
-    @apply w-max h-7 px-2 flex items-center bg-slate-200 text-slate-500 font-semibold capitalize border-2 border-slate-500 rounded-lg cursor-pointer duration-150 hover:bg-slate-300;
-    
-}
-.input-radio input[type="radio"] {
-    @apply hidden;    
-}
-.input-radio input[type="radio"]:checked+label {
-    @apply bg-slate-500 text-slate-100 border-slate-500 hover:bg-slate-600 hover:border-slate-600;
-}
+.input-radio label { @apply w-max h-7 px-2 flex items-center text-slate-500 font-semibold capitalize border-2 border-slate-500 rounded-lg cursor-pointer duration-150 hover:bg-slate-300     }
+.input-radio input[type="radio"] { @apply hidden;    }
+.input-radio input[type="radio"]:checked+label { @apply bg-slate-500 text-slate-100 border-slate-500 hover:bg-slate-600 hover:border-slate-600;}
 
 /* File input */
-.input-file {
-    @apply file:h-9 file:px-4 file:bg-slate-600 file:text-sm file:text-slate-100 file:font-semibold file:border-0 file:rounded-full file:cursor-pointer file:duration-150 file:hover:bg-slate-900;
-}
+.input-file { @apply file:h-9 file:px-4 file:bg-slate-600 file:text-sm file:text-slate-100 file:font-semibold file:border-0 file:rounded-full file:cursor-pointer file:duration-150 file:hover:bg-slate-900;}
 
 /* Input text */
-.input-text {
-    @apply  h-10 px-2 grow bg-transparent border-2 border-slate-400 rounded-lg duration-300 focus:border-teal-500 outline-none;
-}
+.input-text { @apply  h-10 px-2 grow bg-transparent border-2 border-slate-400 rounded-lg duration-300 focus:border-teal-500 outline-none;}
 
 /* Debug */
-.debug {
-    /* border: 1px solid crimson; */
-    @apply border border-red-500;
-}
+.debug{ @apply border border-red-500;}

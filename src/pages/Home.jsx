@@ -2,9 +2,7 @@ import { useState,useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { useUserContext } from '../context/UserContext'
 import { getAllTasks, getCategoryTasks } from '../service/firestore'
-import { Header } from '../components/Header'
-import { Main } from '../components/Main'
-import { TaskItem } from '../components/TaskItem'
+import { Header, Main, TaskItem } from '../components/index'
 
 const tasksList = (tasks,completed) => {
     const tasksFilter = tasks.filter(e => e.completed === completed)
@@ -35,29 +33,29 @@ export const Home = () => {
     },[])
 
     return <>
-            <Header title={`Hi! ${userLogged.displayName}`} />
+            <Header title={`Hola! ${userLogged.displayName}`} />
             <Main>
-                {/* Filter category */}
+                {/* Filtrar por categorias */}
                 <div className='px-1 py-1 grid grid-cols-2 gap-2 sm:grid-cols-4'>
-                    {[["/","Tasks",allTasks],["/work","Work",workTasks],["/personal","Personal",personalTasks],["/other","Other",otherTasks]].map((item,i) => (
+                    {[["/","Tareas",allTasks],["/work","Trabajo",workTasks],["/personal","Personal",personalTasks],["/other","Otros",otherTasks]].map((item,i) => (
                         <NavbarLink to={item[0]} key={i}>
                             {item[1]} <span className='text-3xl'>{item[2].length}</span>
                         </NavbarLink>
                     ))}
                 </div>
-                {/* Filter status */}
+                {/* Filtrar por estado */}
                 <div className='w-full px-1 py-1 flex items-center gap-2'>
                     <div className='input-radio'>
                         <input type="radio" name="status" id="pending" className="input-radio" onChange={() => setStatusTasks(false)} defaultChecked/>
-                        <label htmlFor="pending">Pending</label>
+                        <label htmlFor="pending">Pendiente</label>
                     </div>
                     <div className='input-radio'>
                         <input type="radio" name="status" id="finish" className="input-radio" onChange={() => setStatusTasks(true)}/>
-                        <label htmlFor="finish">Finish</label>
+                        <label htmlFor="finish">Finalizado</label>
                     </div>
                 </div>
-                {/* Tasks list */}
-                <ul className='px-1 py-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-3 gap-2'>
+                {/* Lista de tareas */}
+                <ul className='px-1 py-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-2'>
                     {category === undefined
                     ?   tasksList(allTasks,statusTasks)
                     :   category === "work"
@@ -66,6 +64,12 @@ export const Home = () => {
                             ?   tasksList(personalTasks,statusTasks)
                             :   tasksList(otherTasks,statusTasks)
                     }
+                    {/* 
+                        !category && tasksList(allTasks,statusTasks)
+                        category === "work" && tasksList(workTasks,statusTasks)
+                        category === "personal" && tasksList(personalTasks,statusTasks)
+                        category === "other" && tasksList(otherTasks,statusTasks)
+                     */}
                 </ul>
             </Main>
         </>

@@ -37,11 +37,11 @@ export const TaskView = () => {
             <Header />
             <Main>
                 <form className="section section-col" onChange={handleEditTask} onSubmit={sendEditTask}>
-                    {/* Task title */}
-                    <input type="text" name="title" className="w-full mb-1 px-1 py-1 text-3xl bg-transparent outline-none" defaultValue={task.title} placeholder="Title..." />
-                    {/* Task description */}
-                    <textarea name="description" className="w-full px-1 py-1 grow bg-transparent outline-none" defaultValue={task.description} placeholder="Description..."></textarea>
-                    {/* Task update */}
+                    {/* Titulo */}
+                    <input type="text" name="title" className="w-full mb-1 px-1 py-1 text-3xl bg-transparent outline-none" defaultValue={task.title} placeholder="Titulo..." />
+                    {/* Descripcion */}
+                    <textarea name="description" className="w-full px-1 py-1 grow bg-transparent outline-none" defaultValue={task.description} placeholder="Descripcion..."></textarea>
+                    {/* Boton actualizar tarea */}
                     <button type="submit" className="w-10 h-10 flex items-center justify-center bg-slate-200 rounded-full"><i className="fa-solid fa-check"></i></button>
                 </form>
             </Main>

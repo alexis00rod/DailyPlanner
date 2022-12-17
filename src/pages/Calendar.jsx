@@ -3,11 +3,10 @@ import { useUserContext } from '../context/UserContext'
 import { getDayTasks } from '../service/firestore'
 import { Header } from "../components/Header"
 import { TaskItem } from "../components/TaskItem"
-import { Loader } from '../components/Loader'
 import { Main } from '../components/Main'
 
-const days = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
-const months = ["january","february","march","april","may","june","july","august","september","october","november","december"]
+const days = ["domingo","lunes","martes","miercoles","jueves","viernes","sabado"]
+const months = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
 
 const convertDateToString = (value) => {
     let year = value.getUTCFullYear()
@@ -46,9 +45,9 @@ export const Calendar = () => {
 
     return (
         <>
-            <Header title="Calendar" />
+            <Header title="Calendario" />
             <Main>
-                {/* Calendar */}
+                {/* Calendario */}
                 <div className="box">
                     <div className='w-full px-2 py-2 flex items-center gap-4'>
                         <div className='px-1 py-1 flex flex-col grow'>
@@ -63,18 +62,18 @@ export const Calendar = () => {
                         </div>
                     </div>
                 </div>
-                {/* Filter status */}
+                {/* Filtrar por estado */}
                 <div className='w-full px-1 py-1 flex items-center gap-2'>
                     <div className='input-radio'>
                         <input type="radio" name="status" id="pending" className="input-radio" onChange={() => setStatusTasks(false)} defaultChecked/>
-                        <label htmlFor="pending" className="">Pending</label>
+                        <label htmlFor="pending" className="">Pendiente</label>
                     </div>
                     <div className='input-radio'>
                         <input type="radio" name="status" id="finish" className="input-radio" onChange={() => setStatusTasks(true)}/>
-                        <label htmlFor="finish" className="">Finish</label>
+                        <label htmlFor="finish" className="">Finalizado</label>
                     </div>
                 </div>
-                {/* Tasks day */}
+                {/* Tareas del dia */}
                 <ul className='grow grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-3 gap-4'>
                     {tasksList(dayTasks,statusTasks)}
                 </ul>

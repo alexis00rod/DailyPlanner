@@ -1,6 +1,6 @@
 import { Navigate, useNavigate } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
-import { Loader } from "./Loader"
+import { Loader } from './index'
 
 export const ProtectedRoutes = ({children}) => {
     const {userLogged} = useUserContext()

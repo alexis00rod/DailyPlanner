@@ -2,50 +2,46 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const NavbarLink = ({children,...props}) => {
     return <NavLink {...props} 
-    className={({isActive}) => `px-1 w-full h-16 flex flex-col items-center justify-center duration-150 ${isActive ? "text-slate-900" : "text-slate-600  hover:text-slate-900"} `}>
-                    {children}
+                className={({isActive}) => `navbar-link ${isActive && "text-teal-500"}`}>
+                {children}
             </NavLink>
 }
 
 export const Navbar = () => {
-    const location = useLocation()
+    const {pathname} = useLocation()
 
-    return (
-        <nav className='w-full h-max px-1 py-1 flex flex-row items-center bg-slate-100'>
-            <ul className='w-full max-w-screen-lg mx-auto px-1 flex flex-row items-end grow'>
-                <li className='px-1 flex flex-row items-center justify-center grow'>
-                    <NavbarLink to='/'>
-                        <i className="fa-solid fa-house text-xl"></i>
-                        <span className='text-sm font-bold'>Home</span>
-                    </NavbarLink>
-                </li>
-                <li className='px-1 flex flex-row items-center justify-center grow'>
-                    <NavbarLink to='/calendar'>
-                        <i className="fa-solid fa-calendar text-xl"></i>
-                        <span className='text-sm font-bold'>Calendar</span>
-                    </NavbarLink>
-                </li>
-                {
-                    location.pathname !== "/add-task" && 
-                    <li className='px-1 relative w-1/5 h-full flex flex-row items-center justify-center'>
-                        <Link to='/add-task' className='absolute bottom-5 w-16 h-16 flex flex-col items-center justify-center flex-none text-slate-100 bg-slate-600 rounded-full shadow-md shadow-slate-600 duration-300 hover:bg-slate-900'>
+    return <nav className='navbar'>
+                <ul className='navbar-wrapper'>
+                    <li className='navbar-item'>
+                        <NavbarLink to='/'>
+                            <i className="fa-solid fa-house text-xl"></i>
+                            <span className='text-sm font-bold'>Inicio</span>
+                        </NavbarLink>
+                    </li>
+                    <li className='navbar-item'>
+                        <NavbarLink to='/calendar'>
+                            <i className="fa-solid fa-calendar text-xl"></i>
+                            <span className='text-sm font-bold'>Calendario</span>
+                        </NavbarLink>
+                    </li>
+                    {pathname !== "/add-task" && 
+                    <li className='navbar-item'>
+                        <Link to='/add-task' className='navbar-btn'>
                             <i className="fa-solid fa-plus text-xl"></i>
                         </Link>
+                    </li>}
+                    <li className='navbar-item'>
+                        <NavbarLink to='/profile'>
+                            <i className="fa-solid fa-user text-xl"></i>
+                            <span className='text-sm font-bold'>Perfil</span>
+                        </NavbarLink>
                     </li>
-                }
-                <li className='px-1 flex flex-row items-center justify-center grow'>
-                    <NavbarLink to='/profile'>
-                        <i className="fa-solid fa-user text-xl"></i>
-                        <span className='text-sm font-bold'>Profile</span>
-                    </NavbarLink>
-                </li>
-                <li className='px-1 flex flex-row items-center justify-center grow'>
-                    <NavbarLink to='/settings'>
-                        <i className="fa-solid fa-gear text-xl"></i>
-                        <span className='text-sm font-bold'>Settings</span>
-                    </NavbarLink>
-                </li>
-            </ul>
-        </nav>
-    )
+                    <li className='navbar-item'>
+                        <NavbarLink to='/settings'>
+                            <i className="fa-solid fa-gear text-xl"></i>
+                            <span className='text-sm font-bold'>Ajustes</span>
+                        </NavbarLink>
+                    </li>
+                </ul>
+            </nav>
 }

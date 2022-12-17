@@ -2,8 +2,7 @@ import { useState,useEffect } from "react"
 import { useUserContext } from "../context/UserContext"
 import { getTasksCount } from "../service/firestore"
 import { Link} from "react-router-dom"
-import { Header } from "../components/Header"
-import { Main } from "../components/Main"
+import { Header, Main } from '../components/index'
 
 export const Profile = () => {
     const {userLogged} = useUserContext()
@@ -18,7 +17,7 @@ export const Profile = () => {
 
     return (
         <>
-            <Header title="Profile" />
+            <Header title="Perfil" />
             <Main>
                 {/* User info */}
                 <div className="box">
@@ -30,9 +29,9 @@ export const Profile = () => {
                 </div>
                 {/* User tasks info */}
                 <ul className="box">
-                    <li className="px-1 py-1"><Link to='/all' className="px-1 py-1">All tasks: <span>{allTasks.length}</span></Link></li>
-                    <li className="px-1 py-1"><Link to='/' className="px-1 py-1">Pending tasks: <span>{pendingTasks.length}</span></Link></li>
-                    <li className="px-1 py-1"><Link to='/completed' className="px-1 py-1">Completed tasks: <span>{completedTasks.length}</span></Link></li>
+                    <li className="px-1 py-1"><Link to='/all' className="px-1 py-1">Todas las tareas: <span>{allTasks.length}</span></Link></li>
+                    <li className="px-1 py-1"><Link to='/' className="px-1 py-1">Tareas pendientes: <span>{pendingTasks.length}</span></Link></li>
+                    <li className="px-1 py-1"><Link to='/completed' className="px-1 py-1">Tareas finalizadas: <span>{completedTasks.length}</span></Link></li>
                 </ul>
             </Main>
         </>

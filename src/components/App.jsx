@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { ProtectedRoutes } from './ProtectedRoutes'
-import { Navbar } from './Navbar'
+import { Navbar, ProtectedRoutes } from './index'
 
 export const App = () => {
     const location = useLocation()
@@ -10,12 +9,10 @@ export const App = () => {
         window.scrollTo(0,0)
     },[location])
 
-    return (
-        <section className='app'>
-            <ProtectedRoutes>
-                <Outlet />
-                <Navbar />
-            </ProtectedRoutes>
-        </section>
-    )
+    return <section className="app">
+                <ProtectedRoutes>
+                    <Outlet />
+                    <Navbar />
+                </ProtectedRoutes>
+            </section>
 }
