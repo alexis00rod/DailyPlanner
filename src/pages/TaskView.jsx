@@ -2,9 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 import { editTask, viewTask } from "../service/firestore"
-import { Header } from "../components/Header"
-import { Loader } from "../components/Loader"
-import { Main } from "../components/Main"
+import { Header,Loader,Main } from '../components/index'
 
 export const TaskView = () => {
     const {userLogged} = useUserContext()
