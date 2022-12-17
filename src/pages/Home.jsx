@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { useUserContext } from '../context/UserContext'
-import { getAllTasks, getCategoryTasks } from '../service/firestore'
 import { Header, Main, TaskItem } from '../components/index'
+import { useTasks } from '../hook/useTasks'
 
 const tasksList = (tasks,completed) => {
     const tasksFilter = tasks.filter(e => e.completed === completed)
@@ -19,18 +19,8 @@ const NavbarLink = ({children,...props}) => {
 export const Home = () => {
     const {userLogged} = useUserContext()
     const {category} = useParams()
-    const [allTasks, setAllTasks] = useState([])
-    const [workTasks, setWorkTasks] = useState([])
-    const [personalTasks, setPersonalTasks] = useState([])
-    const [otherTasks, setOtherTasks] = useState([])
+    const {allTasks,workTasks,personalTasks,otherTasks} = useTasks()
     const [statusTasks, setStatusTasks] = useState(false)
-
-    useEffect(() => {
-        getAllTasks(userLogged,"created","desc",setAllTasks)
-        getCategoryTasks(userLogged,"work","created","desc",setWorkTasks)
-        getCategoryTasks(userLogged,"personal","created","desc",setPersonalTasks)
-        getCategoryTasks(userLogged,"other","created","desc",setOtherTasks)
-    },[])
 
     return <>
             <Header title={`Hola! ${userLogged.displayName}`} />
@@ -64,7 +54,7 @@ export const Home = () => {
                             ?   tasksList(personalTasks,statusTasks)
                             :   tasksList(otherTasks,statusTasks)
                     }
-                    {/* 
+                    {/*                     
                         !category && tasksList(allTasks,statusTasks)
                         category === "work" && tasksList(workTasks,statusTasks)
                         category === "personal" && tasksList(personalTasks,statusTasks)
