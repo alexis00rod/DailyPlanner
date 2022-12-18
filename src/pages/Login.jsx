@@ -35,7 +35,7 @@ export const Login = () => {
                     {/* Login header */}
                     <div className='w-full px-1 py-2 flex flex-col'>
                         <h1 className='mb-1 px-1 pt-2 pb-4 text-5xl font-bold font-pacifico text-teal-500'>Daily Planner</h1>
-                        <h2 className='px-2 pt-2 text-slate-500 text-xl'>Iniciar sesion</h2>
+                        <h2 className='px-2 pt-2 text-slate-600 dark:text-slate-400 text-xl'>Iniciar sesion</h2>
                     </div>
                     {/* Login body */}
                     <div className='w-full px-1 py-1 flex flex-col gap-2' onSubmit={loginUser}>

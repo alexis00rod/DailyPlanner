@@ -83,7 +83,7 @@ export const Signup = () => {
                     {/* Signup header */}
                     <div className='w-full px-1 py-2 flex flex-col'>
                         <h1 className='mb-1 px-1 pt-2 pb-4 text-5xl font-bold font-pacifico text-teal-500'>Daily Planner</h1>
-                        <h2 className='px-2 pt-2 text-slate-500 text-xl'>Crear cuenta</h2>
+                        <h2 className='px-2 pt-2 text-slate-600 text-xl dark:text-slate-400'>Crear cuenta</h2>
                     </div>
                     {/* Signup body */}
                     <div className='w-full px-1 py-1 flex flex-col items-center gap-2'>
@@ -94,17 +94,17 @@ export const Signup = () => {
                                 <span className={`mb-1 w-10 h-10 flex items-center justify-center text-xl rounded-lg border-2 border-teal-300 ${signupStep === 1 ? "border-teal-300 text-slate-100 bg-teal-300" : "border-teal-300 text-teal-300"}`}>
                                     {signupStep === 1 ? "1" : <i className='fa-solid fa-check'></i>}
                                 </span>
-                                <span className='text-sm text-slate-500 text-center'>Email y contraseña</span>
+                                <span className='text-sm text-slate-600 text-center dark:text-slate-400'>Email y contraseña</span>
                             </div>
                             <div className='grow px-1 py-1'>
                                 <span className='w-10 h-10 flex items-center justify-center'>
-                                    <i className='fa-solid fa-chevron-right text-xl text-slate-500'></i>
+                                    <i className='fa-solid fa-chevron-right text-xl text-slate-400'></i>
                                 </span>
                             </div>
                             {/* Step 2 */}
                             <div className='grow px-1 py-1'>
-                                <span className={`mb-1 w-10 h-10 flex items-center justify-center text-xl rounded-lg ${signupStep === 2 ? "bg-teal-300 text-slate-100" : "bg-slate-200 text-slate-500"}`}>2</span>
-                                <span className='text-sm text-slate-500 text-center'>Perfil</span>
+                                <span className={`mb-1 w-10 h-10 flex items-center justify-center text-xl rounded-lg ${signupStep === 2 ? "bg-teal-300 text-slate-100" : "bg-slate-200 text-slate-400"}`}>2</span>
+                                <span className='text-sm text-slate-600 text-center dark:text-slate-400'>Perfil</span>
                             </div>
                         </div>
                         {/* Signup form */}
