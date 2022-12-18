@@ -1,30 +1,37 @@
-import { Header } from "../components/Header"
-import { Main } from '../components/Main'
+import { useState } from "react"
+import { Header, Main } from '../components/index'
+import { useTheme } from "../hook/useTheme"
 import { logout } from '../service/auth'
 
 export const Settings = () => {
-    // const {darkMode, setDarkMode} = useDarkModeContext()
+    const { theme,setTheme } = useTheme()
 
     return (
         <>
             <Header title="Ajustes" />
             <Main>
-                <ul className="section section-col">
-                    {/* Dark mode */}
-                    {/* <li className="w-full px-2 py-2 flex items-center justify-between">
-                        <div className="w-max h-full px-1 flex items-center gap-2">
-                            <i className="text-2xl fa-solid fa-moon"></i>
-                            <span>Modo oscuro</span>
+                <div className="section section-col">
+                    {/* Cambiar tema */}
+                    <div className="w-full max-w-screen-sm mx-auto px-2 py-2 flex flex-wrap gap-2">
+                        <h4 className="px-2 py-1 font-semibold">Tema: </h4>
+                        <div className="px-2 flex justify-center gap-4 grow">
+                            <div className={`w-full max-w-xs px-3 py-3 bg-slate-200 rounded-lg cursor-pointer ${theme && "border-4 border-green-500"}`} onClick={() => setTheme(true)}>
+                                <div className="px-3 py-3 bg-slate-100 rounded-lg">
+                                    <span className="text-slate-900">Claro</span>
+                                </div>
+                            </div>
+                            <div className={`w-full max-w-xs px-3 py-3 bg-slate-800 rounded-lg cursor-pointer ${!theme && "border-4 border-green-500"}`} onClick={() => setTheme(false)}>
+                                <div className="px-3 py-3 bg-slate-900 rounded-lg">
+                                    <span className="text-slate-100">Oscuro</span>
+                                </div>
+                            </div>
                         </div>
-                        <button className={`relative w-14 h-7 inline-block rounded-full ${darkMode ? "bg-green-500" : "bg-slate-300"}`} onClick={() => setDarkMode(!darkMode)}>
-                            <span className={`absolute top-0 bottom-0 z-10  w-7 h-full inline-block bg-slate-100 border-2 rounded-full ${darkMode ? "right-0 border-green-500" : "left-0 border-slate-300"}`}></span>
-                        </button>
-                    </li> */}
+                    </div>
                     {/* Logout */}
-                    <li className='w-full px-2 py-2 flex items-center'>
-                        <button className='w-max px-2 py-1 text-slate-500 font-semibold duration-150 hover:text-slate-900' onClick={logout}>Cerrar sesion</button>
-                    </li>
-                </ul>
+                    <div className="px-2 py-2">
+                        <button className='btn btn-form mx-auto' onClick={logout}>Cerrar sesion</button>
+                    </div>
+                </div>
             </Main>
         </>
     )
