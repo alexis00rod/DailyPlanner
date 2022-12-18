@@ -8,7 +8,7 @@ export const useTasks = () => {
     const [workTasks, setWorkTasks] = useState([])
     const [personalTasks, setPersonalTasks] = useState([])
     const [otherTasks, setOtherTasks] = useState([])
-
+    
     useEffect(() => {
         getAllTasks(userLogged,"created","desc",setAllTasks)
         getCategoryTasks(userLogged,"work","created","desc",setWorkTasks)
