@@ -33,6 +33,19 @@ export const getAllTasks = (user,by,order,set) => {
     })
 }
 
+// Funcion para obtener las tareas por dia
+export const getDayTasks = (user,day,set) => {
+    const {email} = user
+    const ref = query(tasksUserRef(email),where("day","==",day),orderBy("created","desc"))
+
+    onSnapshot(ref,snapshot => {
+        set(snapshot.docs.map(e => ({
+            id: e.id,
+            ...e.data()
+        })))
+    })
+}
+
 // Funcion para obtener tareas filtradas por categoria
 export const getCategoryTasks = (user,category,by,order,set) => {
     const {email} = user
@@ -47,19 +60,6 @@ export const getCategoryTasks = (user,category,by,order,set) => {
 export const getTasksCount = ({email},set) => {
     onSnapshot(tasksUserRef(email), snapshot => {
         set(snapshot.docs.map(e => ({id: e.id,...e.data()})))
-    })
-}
-
-// Funcion para obtener las tareas por dia
-export const getDayTasks = (user,day,set) => {
-    const {email} = user
-    const ref = query(tasksUserRef(email),where("day","==",day),orderBy("created","desc"))
-
-    onSnapshot(ref,snapshot => {
-        set(snapshot.docs.map(e => ({
-            id: e.id,
-            ...e.data()
-        })))
     })
 }
 
