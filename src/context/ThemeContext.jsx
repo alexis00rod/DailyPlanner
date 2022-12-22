@@ -4,40 +4,20 @@ const ThemeContext = createContext()
 export const useThemeContext = () => useContext(ThemeContext)
 
 export const ThemeProvider = ({children}) => {
-    const [theme, setTheme] = useState(null);
+    const [theme, setTheme] = useState('');
+
+	const localTheme = localStorage.getItem("theme")
 
 	useEffect(() => {
-		if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-			setTheme('dark');
-		} else {
-			setTheme('light');
-		}
-	}, []);
-
-	const handleTheme = () => {
-		setTheme(theme === 'dark' ? 'light' : 'dark');
-	};
-
-    useEffect(() => {
-		if (theme === 'dark') {
-			document.documentElement.classList.add('dark');
-		} else {
-			document.documentElement.classList.remove('dark');
-		}
-	}, [theme]);
+		localTheme ? setTheme(localTheme) : localStorage.setItem("theme", "light")
+	},[])
 
 	useEffect(() => {
-		if (theme === 'dark') {
-			document.documentElement.classList.add('dark');
-		} else {
-			document.documentElement.classList.remove('dark');
-		}
-	}, [theme]);
+		localStorage.setItem("theme", theme)
+		theme === "dark" ? document.documentElement.classList.add("dark") : document.documentElement.classList.remove("dark")
+	},[theme])
 
-    // !theme && document.documentElement.classList.add("dark")
-    // theme && document.documentElement.classList.remove("dark")
-
-    return <ThemeContext.Provider value={{ theme, setTheme, handleTheme }}>
+    return <ThemeContext.Provider value={{ theme, setTheme }}>
         {children}
     </ThemeContext.Provider>
 }
