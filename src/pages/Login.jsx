@@ -58,7 +58,7 @@ export const Login = () => {
                             </div>
                             {/* Login forgot password */}
                             <div className='w-full mb-1 px-1 py-1 flex flex-col'>
-                                <span className='w-max px-1 flex items-center text-teal-500 duration-300 hover:text-teal-600 cursor-pointer'>Forgot password?</span>
+                                <span className='w-max px-1 flex items-center text-teal-500 duration-300 hover:text-teal-600 cursor-pointer'>¿Olvidaste tu contraseña?</span>
                             </div>
                             {/* Submit */}
                             <div className='w-full px-1 py-1'>
