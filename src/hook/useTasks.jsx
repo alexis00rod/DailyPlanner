@@ -10,10 +10,10 @@ export const useTasks = () => {
     const [otherTasks, setOtherTasks] = useState([])
     
     useEffect(() => {
-        getAllTasks(userLogged,"created","desc",setAllTasks)
-        getCategoryTasks(userLogged,"work","created","desc",setWorkTasks)
-        getCategoryTasks(userLogged,"personal","created","desc",setPersonalTasks)
-        getCategoryTasks(userLogged,"other","created","desc",setOtherTasks)
+        getAllTasks(userLogged,"day","asc",setAllTasks)
+        getCategoryTasks(userLogged,"work","day","asc",setWorkTasks)
+        getCategoryTasks(userLogged,"personal","day","asc",setPersonalTasks)
+        getCategoryTasks(userLogged,"other","day","asc",setOtherTasks)
     },[])
 
     return { allTasks, workTasks, personalTasks, otherTasks }
