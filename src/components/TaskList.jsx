@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
 import { useTasks } from '../hook/useTasks'
-import { TaskItem } from './TaskItem'
+import { TaskItem } from '../components/index'
 
 const convertDateToString = (value) => {
     let year = value.getUTCFullYear()
@@ -19,7 +17,9 @@ export const TaskList = ({category,filter}) => {
                         ?   tasks.filter(e => e.day === convertDateToString(new Date))
                         :   filter === "pending"
                             ?   tasks.filter(e => e.completed === false)
-                            :   tasks.filter(e => e.completed === true)
+                            :   filter === "finish"
+                                ?   tasks.filter(e => e.completed === true)
+                                :   tasks
 
         return list.map(item => <TaskItem key={item.id} item={item} />)
     }
