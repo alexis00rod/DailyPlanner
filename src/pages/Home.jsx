@@ -1,8 +1,8 @@
-import { NavLink, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { useUserContext } from '../context/UserContext'
-import { Header, Main, TaskList } from '../components/index'
+import { NavLink, useParams } from 'react-router-dom'
 import { useTasks } from '../hook/useTasks'
-import { useState } from 'react'
+import { Header, Main, TaskList } from '../components/index'
 
 const NavbarLink = ({children,...props}) => {
     return <NavLink {...props} 
@@ -16,6 +16,10 @@ export const Home = () => {
     const { category } = useParams()
     const { allTasks, workTasks, personalTasks, otherTasks} = useTasks()
     const [filterTasks, setFilterTasks] = useState("today")
+
+    useEffect(() => {
+        window.document.title = "Daily Planner"
+    },[])
 
     const handleFilterTasks = ({target:{value}}) => {
         setFilterTasks(value)
@@ -34,18 +38,14 @@ export const Home = () => {
                 </div>
                 {/* Filtrar por estado */}
                 <div className='w-full px-1 py-1 flex items-center gap-2'>
-                    <div className='input-radio'>
-                        <input type="radio" name="filter" id="today" value="today" onChange={handleFilterTasks}  defaultChecked/>
-                        <label htmlFor="today">Hoy</label>
-                    </div>
-                    <div className='input-radio'>
-                        <input type="radio" name="filter" id="pending" value="pending" onChange={handleFilterTasks} />
-                        <label htmlFor="pending">Pendiente</label>
-                    </div>
-                    <div className='input-radio'>
-                        <input type="radio" name="filter" id="finish" value="finish" onChange={handleFilterTasks} />
-                        <label htmlFor="finish">Finalizado</label>
-                    </div>
+                    {[["today","Hoy"],["pending","Pendiente"],["finish","Finalizado"],["all","Todo"]].map((e,i) => (
+                       <div className='input-radio'>
+                            {i === 0
+                            ?   <input type="radio" name="filter" id={e[0]} value={e[0]} onChange={handleFilterTasks} defaultChecked/>
+                            :   <input type="radio" name="filter" id={e[0]} value={e[0]} onChange={handleFilterTasks}/>}
+                            <label htmlFor={e[0]}>{e[1]}</label>
+                        </div> 
+                    ))}
                 </div>
                 {/* Lista de tareas */}
                 <TaskList category={category} filter={filterTasks} />

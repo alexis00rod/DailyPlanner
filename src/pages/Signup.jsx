@@ -1,7 +1,6 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Main } from '../components/Main'
+import { Main } from '../components/index'
 import { signup } from '../service/auth'
 import { getDefaultProfilePhotoURL, uploadUserPhoto } from '../service/storage'
 import formImage from '../assets/form-image.png'
@@ -11,6 +10,10 @@ export const Signup = () => {
     const [signupStep, setSignupStep] = useState(1)
     const [signupErrorMessage, setSignupErrorMessage] = useState()
     const [userToSignup, setUserToSignup] = useState({})
+
+    useEffect(() => {
+        window.document.title = "Daily Planner | Crear cuenta"
+    },[])
 
     // Expresiones regulares para validar formulario
     const regexp = {
@@ -36,7 +39,6 @@ export const Signup = () => {
         emailTest && passwordTest && setSignupStep(2)
     }
 
-    // Funcion para manejar inputs
     const handleInputs = ({target:{name,value}}) => {
         setUserToSignup({
             ...userToSignup,
@@ -44,7 +46,6 @@ export const Signup = () => {
         })
     }
 
-    // Funcion para cambiar foto de perfil
     const handleSignupUserPhoto = ({target:{files}}) => {
         const {email} = userToSignup
 
@@ -54,7 +55,6 @@ export const Signup = () => {
         .then(resp => setUserToSignup({...userToSignup,photoURL:resp}))
     }
 
-    // Funcion para
     const signupProfile = async e => {
         e.preventDefault()
         const {email,password,displayName,photoURL} = userToSignup

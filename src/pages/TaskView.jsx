@@ -14,9 +14,15 @@ export const TaskView = () => {
         viewTask(userLogged,id)
         .then(resp => setTask({id:resp.id,...resp.data()}))
         .finally(() => setLoading(true))
-
+        
     },[id])
 
+    useEffect(() => {
+        window.document.title = `Daily Planner | ${task.title}`
+
+    },[task])
+    
+    
     const handleEditTask = ({target:{name,value}}) => {
         setTask({
             ...task,
@@ -28,6 +34,8 @@ export const TaskView = () => {
         e.preventDefault()
         editTask(userLogged,task)
     }
+
+    console.log('task', task)
 
     if(!loading) return <Loader />
 

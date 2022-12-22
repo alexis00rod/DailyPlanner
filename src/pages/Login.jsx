@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Main } from '../components/Main'
+import { Main } from '../components/index'
 import { login } from '../service/auth'
 import formImage from '../assets/form-image.png'
 
@@ -8,6 +8,10 @@ export const Login = () => {
     const [userToLogin, setUserToLogin] = useState()
     const [loginErrorMessage, setLoginErrorMessage] = useState()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        window.document.title = "Daily Planner | Iniciar sesion"
+    },[])
 
     const handleUserToLogin = ({target: {name,value}}) => {
         setUserToLogin({...userToLogin,[name]:value})

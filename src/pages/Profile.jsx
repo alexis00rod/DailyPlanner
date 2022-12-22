@@ -12,8 +12,12 @@ export const Profile = () => {
     const completedTasks = allTasks.filter(e => e.completed === true)
 
     useEffect(() => {
-        getTasksCount(userLogged,setAllTasks)
+        window.document.title = "Daily Planner | Perfil"
     },[])
+
+    useEffect(() => {
+        getTasksCount(userLogged,setAllTasks)
+    },[userLogged])
 
     return (
         <>

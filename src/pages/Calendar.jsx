@@ -1,9 +1,7 @@
 import { useState,useEffect } from 'react'
 import { useUserContext } from '../context/UserContext'
+import { Header, Main, TaskItem } from '../components/index'
 import { getDayTasks } from '../service/firestore'
-import { Header } from "../components/Header"
-import { TaskItem } from "../components/TaskItem"
-import { Main } from '../components/Main'
 
 const days = ["domingo","lunes","martes","miercoles","jueves","viernes","sabado"]
 const months = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
@@ -40,6 +38,10 @@ export const Calendar = () => {
     }
 
     useEffect(() => {
+        window.document.title = "Daily Planner | Calendario"
+    },[])
+
+    useEffect(() => {
         getDayTasks(userLogged,convertDateToString(day),setDayTasks)
     },[userLogged,day])
 
@@ -51,7 +53,7 @@ export const Calendar = () => {
                 <div className="box">
                     <div className='w-full px-2 py-2 flex items-center gap-4'>
                         <div className='px-1 py-1 flex flex-col grow'>
-                            <h3 className='px-1 text-lg text-slate-700 capitalize'>{`${months[day.getMonth()]}, ${day.getFullYear()}`}</h3>
+                            <h3 className='px-1 text-lg text-slate-600 dark:text-slate-400 capitalize'>{`${months[day.getMonth()]}, ${day.getFullYear()}`}</h3>
                             <h2 className='px-1 text-4xl font-semibold uppercase'>{`${days[day.getDay()]} ${day.getDate()}`}</h2>
                         </div>
                         <div className="input-date">

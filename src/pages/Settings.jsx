@@ -1,10 +1,14 @@
-import { useState } from "react"
+import { useEffect } from "react"
 import { Header, Main } from '../components/index'
 import { useThemeContext } from "../context/ThemeContext"
 import { logout } from '../service/auth'
 
 export const Settings = () => {
     const { theme,setTheme } = useThemeContext()
+
+    useEffect(() => {
+        window.document.title = "Daily Planner | Ajustes"
+    },[])
 
     return (
         <>
