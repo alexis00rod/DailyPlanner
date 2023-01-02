@@ -19,7 +19,7 @@ export const TaskItem = ({item:{id,title,description,day,category,hour,completed
                 <div className="px-2 pb-2 grow flex flex-col">
                     <h3 className="h-8 mb-1 flex items-center text-lg font-semibold truncate">{title}</h3>
                     <div className='w-full h-16 mb-1'>
-                        <p className="text-sm line-clamp-2 text-slate-700 dark:text-slate-300">{description}</p>
+                        <p className="line-clamp-2 text-slate-800 dark:text-slate-200">{description}</p>
                     </div>
                     <div className='w-full flex gap-2'>
                         <span className='w-max px-1 flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400'><i className="fa-solid fa-calendar"></i>{day}</span>

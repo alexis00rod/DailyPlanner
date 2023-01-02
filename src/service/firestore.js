@@ -7,8 +7,8 @@ const db = getFirestore(app)
 const userRef = (user) => doc(db,"users",user)
 const tasksUserRef = (user) => collection(db,"users",user,"tasks")
 const taskRef = (user,id) => doc(db,"users",user,"tasks",id)
-const allTasksRef = (user,by,order) => query(tasksUserRef(user),orderBy(by,order))
-const categoryTasksRef = (user,category,by,order) => query(tasksUserRef(user),where("category","==",category),orderBy(by,order))
+const allTasksRef = (user) => query(tasksUserRef(user),orderBy("day","asc"),orderBy("hour","asc"))
+const categoryTasksRef = (user,category) => query(tasksUserRef(user),where("category","==",category),orderBy("day","asc"),orderBy("hour","asc"))
 
 // Funcion para agregar usuario a la base de datos
 export const addUserToDb = (user) => {
@@ -23,9 +23,9 @@ export const addTask = (user,task) => {
 }
 
 // Funcion para obtener todas las tareas
-export const getAllTasks = (user,by,order,set) => {
+export const getAllTasks = (user,set) => {
     const {email} = user
-    onSnapshot(allTasksRef(email,by,order),snapshot => {
+    onSnapshot(allTasksRef(email),snapshot => {
         set(snapshot.docs.map(e => ({
             id: e.id,
             ...e.data()
@@ -34,9 +34,9 @@ export const getAllTasks = (user,by,order,set) => {
 }
 
 // Funcion para obtener tareas filtradas por categoria
-export const getCategoryTasks = (user,category,by,order,set) => {
+export const getCategoryTasks = (user,category,set) => {
     const {email} = user
-    onSnapshot(categoryTasksRef(email,category,by,order),snapshot => {
+    onSnapshot(categoryTasksRef(email,category),snapshot => {
         set(snapshot.docs.map(e => ({
             id: e.id,
             ...e.data()
@@ -47,7 +47,7 @@ export const getCategoryTasks = (user,category,by,order,set) => {
 // Funcion para obtener las tareas por dia
 export const getDayTasks = (user,day,set) => {
     const {email} = user
-    const ref = query(tasksUserRef(email),where("day","==",day),orderBy("created","desc"))
+    const ref = query(tasksUserRef(email),where("day","==",day),orderBy("hour","asc"))
 
     onSnapshot(ref,snapshot => {
         set(snapshot.docs.map(e => ({

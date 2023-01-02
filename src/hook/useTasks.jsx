@@ -13,13 +13,13 @@ export const useTasks = () => {
     const [houseTasks, setHouseTasks] = useState([])
     
     useEffect(() => {
-        getAllTasks(userLogged,"day","asc",setAllTasks)
-        getCategoryTasks(userLogged,"work","day","asc",setWorkTasks)
-        getCategoryTasks(userLogged,"personal","day","asc",setPersonalTasks)
-        getCategoryTasks(userLogged,"shopping","day","asc",setShoppingTasks)
-        getCategoryTasks(userLogged,"study","day","asc",setStudyTasks)
-        getCategoryTasks(userLogged,"house","day","asc",setHouseTasks)
-        getCategoryTasks(userLogged,"other","day","asc",setOtherTasks)
+        getAllTasks(userLogged,setAllTasks)
+        getCategoryTasks(userLogged,"work",setWorkTasks)
+        getCategoryTasks(userLogged,"personal",setPersonalTasks)
+        getCategoryTasks(userLogged,"shopping",setShoppingTasks)
+        getCategoryTasks(userLogged,"study",setStudyTasks)
+        getCategoryTasks(userLogged,"house",setHouseTasks)
+        getCategoryTasks(userLogged,"other",setOtherTasks)
     },[])
 
     return { allTasks, workTasks, personalTasks, otherTasks, shoppingTasks, studyTasks, houseTasks }
