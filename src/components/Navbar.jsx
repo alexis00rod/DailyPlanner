@@ -31,9 +31,10 @@ export const Navbar = () => {
                         </Link>
                     </li>}
                     <li className='navbar-item'>
-                        <NavbarLink to='/profile'>
-                            <i className="fa-solid fa-user text-xl"></i>
-                            <span className='text-sm font-bold hidden md:block'>Perfil</span>
+                        <NavbarLink to='/analytics'>
+                            {/* <i className="fa-solid fa-user text-xl"></i> */}
+                            <i className="fa-solid fa-chart-pie text-xl"></i>
+                            <span className='text-sm font-bold hidden md:block'>Analitica</span>
                         </NavbarLink>
                     </li>
                     <li className='navbar-item'>
