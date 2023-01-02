@@ -10,7 +10,7 @@ const convertDateToString = (value) => {
 }
 
 export const TaskList = ({category,filter}) => {
-    const {allTasks,workTasks,personalTasks,otherTasks} = useTasks()
+    const { allTasks, workTasks, personalTasks, houseTasks, studyTasks, shoppingTasks, otherTasks } = useTasks()
 
     const tasksList = (tasks,filter) => {
         const list = filter === "today" 
@@ -25,9 +25,12 @@ export const TaskList = ({category,filter}) => {
     }
 
     return <ul className='px-1 py-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                {!category && tasksList(allTasks,filter)}
+                {category === "all" && tasksList(allTasks,filter)}
                 {category === "work" && tasksList(workTasks,filter)}
                 {category === "personal" && tasksList(personalTasks,filter)}
+                {category === "house" && tasksList(houseTasks,filter)}
+                {category === "study" && tasksList(studyTasks,filter)}
+                {category === "shopping" && tasksList(shoppingTasks,filter)}
                 {category === "other" && tasksList(otherTasks,filter)}
             </ul>
 }

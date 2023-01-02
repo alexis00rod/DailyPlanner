@@ -75,6 +75,18 @@ export const AddTasks = () => {
                                 <label htmlFor="work" className="">Trabajo</label>
                             </div>
                             <div className='input-radio'>
+                                <input type="radio" name="category" id="house" className="input-radio" defaultValue={"house"} onChange={handleTask} />
+                                <label htmlFor="house" className="">Casa</label>
+                            </div>
+                            <div className='input-radio'>
+                                <input type="radio" name="category" id="study" className="input-radio" defaultValue={"study"} onChange={handleTask} />
+                                <label htmlFor="study" className="">Estudio</label>
+                            </div>
+                            <div className='input-radio'>
+                                <input type="radio" name="category" id="shopping" className="input-radio" defaultValue={"shopping"} onChange={handleTask} />
+                                <label htmlFor="shopping" className="">Compras</label>
+                            </div>
+                            <div className='input-radio'>
                                 <input type="radio" name="category" id="other" className="input-radio" defaultValue={"other"} onChange={handleTask}/>
                                 <label htmlFor="other" className="">Otros</label>
                             </div>
