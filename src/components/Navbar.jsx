@@ -2,7 +2,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 
 const NavbarLink = ({children,...props}) => {
     return <NavLink {...props} 
-                className={({isActive}) => `navbar-link ${isActive && "text-teal-500"}`}>
+                className={({isActive}) => `${isActive ? "navbar-link-active" : "navbar-link"}`}>
                 {children}
             </NavLink>
 }
@@ -15,13 +15,13 @@ export const Navbar = () => {
                     <li className='navbar-item'>
                         <NavbarLink to='/'>
                             <i className="fa-solid fa-house text-xl"></i>
-                            <span className='text-sm font-bold'>Inicio</span>
+                            <span className='text-sm font-bold hidden md:block'>Inicio</span>
                         </NavbarLink>
                     </li>
                     <li className='navbar-item'>
                         <NavbarLink to='/calendar'>
                             <i className="fa-solid fa-calendar text-xl"></i>
-                            <span className='text-sm font-bold'>Calendario</span>
+                            <span className='text-sm font-bold hidden md:block'>Calendario</span>
                         </NavbarLink>
                     </li>
                     {pathname !== "/add-task" && 
@@ -33,13 +33,13 @@ export const Navbar = () => {
                     <li className='navbar-item'>
                         <NavbarLink to='/profile'>
                             <i className="fa-solid fa-user text-xl"></i>
-                            <span className='text-sm font-bold'>Perfil</span>
+                            <span className='text-sm font-bold hidden md:block'>Perfil</span>
                         </NavbarLink>
                     </li>
                     <li className='navbar-item'>
                         <NavbarLink to='/settings'>
                             <i className="fa-solid fa-gear text-xl"></i>
-                            <span className='text-sm font-bold'>Ajustes</span>
+                            <span className='text-sm font-bold hidden md:block'>Ajustes</span>
                         </NavbarLink>
                     </li>
                 </ul>
