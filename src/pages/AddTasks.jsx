@@ -22,6 +22,7 @@ export const AddTasks = () => {
         description: "",
         category: "personal",
         day: formatDate(new Date()),
+        hour: "",
         completed: false,
     })
 
@@ -66,30 +67,14 @@ export const AddTasks = () => {
                     <div className='px-1 py-1 flex flex-col'>
                         <span className='px-2 py-1 text-sm font-semibold'>Categoria</span>
                         <div className='py-1 flex items-center gap-2'>
-                            <div className='input-radio'>
-                                <input type="radio" name="category" id="personal" className="input-radio" defaultValue={"personal"} onChange={handleTask} defaultChecked/>
-                                <label htmlFor="personal" className="">Personal</label>
-                            </div>
-                            <div className='input-radio'>
-                                <input type="radio" name="category" id="work" className="input-radio" defaultValue={"work"} onChange={handleTask} />
-                                <label htmlFor="work" className="">Trabajo</label>
-                            </div>
-                            <div className='input-radio'>
-                                <input type="radio" name="category" id="house" className="input-radio" defaultValue={"house"} onChange={handleTask} />
-                                <label htmlFor="house" className="">Casa</label>
-                            </div>
-                            <div className='input-radio'>
-                                <input type="radio" name="category" id="study" className="input-radio" defaultValue={"study"} onChange={handleTask} />
-                                <label htmlFor="study" className="">Estudio</label>
-                            </div>
-                            <div className='input-radio'>
-                                <input type="radio" name="category" id="shopping" className="input-radio" defaultValue={"shopping"} onChange={handleTask} />
-                                <label htmlFor="shopping" className="">Compras</label>
-                            </div>
-                            <div className='input-radio'>
-                                <input type="radio" name="category" id="other" className="input-radio" defaultValue={"other"} onChange={handleTask}/>
-                                <label htmlFor="other" className="">Otros</label>
-                            </div>
+                            {[["personal","Personal"],["work","Trabajo"],["study","Estudio"],["shopping","Compras"],["house","Casa"],["other","Otro"]].map((e,i) => (
+                                <div className='input-radio' key={e[0]}>
+                                    {i === 0
+                                    ?   <input type="radio" name="category" id={e[0]} className="input-radio" defaultValue={e[0]} onChange={handleTask} defaultChecked/>
+                                    :   <input type="radio" name="category" id={e[0]} className="input-radio" defaultValue={e[0]} onChange={handleTask}/>}
+                                    <label htmlFor={e[0]} className="">{e[1]}</label>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     {/* Dia */}
@@ -101,18 +86,27 @@ export const AddTasks = () => {
                         id='taskDay' 
                         className='input-text'
                         defaultValue={taskToAdd.day}
-                        onChange={handleTaskDay} />
+                        onChange={handleTaskDay} required/>
+                    </div>
+                    {/* Hora */}
+                    <div className='px-1 py-1 flex flex-col'>
+                        <label htmlFor="taskHour" className='px-2 py-1 text-sm font-semibold cursor-pointer'>Hora</label>
+                        <input 
+                        type="time"
+                        name="hour"
+                        id="taskHour"
+                        className='input-text'
+                        defaultValue={taskToAdd.hour}
+                        onChange={handleTask} required/>
                     </div>
                     {/* Descripcion */}
                     <div className='px-1 py-1 flex flex-col'>
                         <label htmlFor="taskDescription" className="px-2 py-1 text-sm font-semibold cursor-pointer">Descripcion</label>
-                        {/* <textarea name="description" id='taskDescription' className='h-20 px-3 py-2 bg-slate-100 border-2 border-slate-500 rounded-lg shadow-inner resize-none focus:outline-none focus:border-cyan-500 focus:shadow-lg' onChange={handleTask}></textarea> */}
                         <textarea name="description" id='taskDescription' className='textarea' onChange={handleTask}></textarea>
                     </div>
                     {/* Submit */}
                     <div className='mt-2 px-1 py-2 flex justify-center'>
                         <button type='submit' className='w-full max-w-xs h-10 mx-auto px-2 flex items-center justify-center text-slate-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600'>Crear tarea</button>
-                        {/* <button type='submit' className='h-9 px-4 flex items-center rounded-full bg-slate-600 text-slate-100 font-semibold duration-150 hover:bg-slate-900'>Crear tarea</button> */}
                     </div>
                 </form>
             </Main>
