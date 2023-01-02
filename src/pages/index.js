@@ -5,6 +5,7 @@ import { Login } from "./Login";
 import { Profile } from "./Profile";
 import { Settings } from "./Settings";
 import { Signup } from "./Signup";
+import { TaskCategory } from "./TaskCategory";
 import { TaskView } from "./TaskView";
 
-export {TaskView,Signup,Settings,Profile,Login,Home,Calendar,AddTasks}
+export {TaskView,Signup,Settings,Profile,Login,Home,Calendar,AddTasks,TaskCategory}
