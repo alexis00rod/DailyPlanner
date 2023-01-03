@@ -6,5 +6,7 @@ import { Loader } from "./Loader";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 import { TaskList } from "./TaskList";
 import { TaskItem } from "./TaskItem";
+import { TaskCategoryPie } from "./TaskCategoryPie";
+import { TaskStatusPie } from "./TaskStatusPie";
 
-export { App,Header, Main, Navbar, Loader, ProtectedRoutes, TaskList, TaskItem }
+export { App,Header, Main, Navbar, Loader, ProtectedRoutes, TaskList, TaskItem, TaskStatusPie, TaskCategoryPie }
