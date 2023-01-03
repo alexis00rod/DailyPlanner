@@ -33,7 +33,7 @@ export const Settings = () => {
                     </div>
                     {/* Logout */}
                     <div className="px-2 py-2">
-                        <button className='btn btn-form mx-auto' onClick={logout}>Cerrar sesion</button>
+                        <button className='w-full max-w-xs h-10 mx-auto px-2 flex items-center justify-center text-slate-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600' onClick={logout}>Cerrar sesion</button>
                     </div>
                 </div>
             </Main>
