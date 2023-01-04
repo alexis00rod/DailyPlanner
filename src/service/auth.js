@@ -5,19 +5,14 @@ export const auth = getAuth(app)
 
 // Funcion para crear usuario usando email y contraseña
 export const signup = (email,password,displayName,photoURL) => {
-    createUserWithEmailAndPassword(auth,email,password)
-    .then(credential => {
-        updateProfile(auth.currentUser, {
-            displayName,
-            photoURL
-        })
-    })
+  createUserWithEmailAndPassword(auth,email,password)
+  .then(credential => {
+    updateProfile(auth.currentUser, {displayName, photoURL})
+  })
 }
 
 // Funcion para iniciar sesion usando email y contraseña
-export const login = ({email,password}) => {
-    return signInWithEmailAndPassword(auth,email,password)
-}
+export const login = ({email,password}) => signInWithEmailAndPassword(auth,email,password)
 
 // Funcion para detectar el estado de la autenticacion
 export const stateAuth = (set) => {
@@ -26,6 +21,4 @@ export const stateAuth = (set) => {
 }
 
 // Funcion para cerrar sesion
-export const logout = () => {
-    signOut(auth)
-}
+export const logout = () => signOut(auth)

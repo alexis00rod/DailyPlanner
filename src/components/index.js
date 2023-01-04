@@ -9,4 +9,4 @@ import { TaskItem } from "./TaskItem";
 import { TaskCategoryPie } from "./TaskCategoryPie";
 import { TaskStatusPie } from "./TaskStatusPie";
 
-export { App,Header, Main, Navbar, Loader, ProtectedRoutes, TaskList, TaskItem, TaskStatusPie, TaskCategoryPie }
+export {App,Header, Main, Navbar, Loader, ProtectedRoutes, TaskList, TaskItem, TaskStatusPie, TaskCategoryPie}

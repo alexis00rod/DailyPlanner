@@ -49,14 +49,18 @@ body { @apply font-poppins bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-
 .card-cta { @apply w-full px-2 pb-2 flex gap-2 items-center justify-end;}
 
 /* Button */
-.btn { @apply h-8 flex items-center justify-center flex-none duration-300;}
-.btn-navigate { @apply  w-8 text-zinc-700 duration-300 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100;}
-.btn-photo { @apply w-8 border-2 border-zinc-700 rounded-full duration-300 hover:border-zinc-900 overflow-hidden dark:border-zinc-300 dark:hover:border-zinc-100;}
-.btn-toggle { @apply w-8 rounded-lg duration-300;}
+.btn { @apply h-10 flex items-center justify-center flex-none duration-300;}
+.btn-navigate { @apply  w-10 text-zinc-700 duration-300 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100;}
+.btn-photo { @apply w-10 border-2 border-zinc-700 rounded-full duration-300 hover:border-zinc-900 overflow-hidden dark:border-zinc-300 dark:hover:border-zinc-100;}
+.btn-toggle { @apply w-10 rounded-lg duration-300;}
 .btn-delete { @apply bg-red-500 text-zinc-100 duration-300 hover:bg-red-600;}
 .btn-finish { @apply bg-transparent text-green-500 border-2 border-green-500 hover:bg-green-500/25;}
 .btn-finish-active { @apply bg-green-500 text-zinc-100 hover:bg-green-600 ;}
-.btn-form { @apply px-4 text-zinc-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600;}
+.btn-form { @apply w-full max-w-xs px-4 text-zinc-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600;}
+.btn-update { @apply w-10 text-zinc-700 dark:text-zinc-300 bg-zinc-200 dark:bg-zinc-800 duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 rounded-full}
+
+/* w-full h-10 mx-auto px-2 flex items-center justify-center text-zinc-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600
+w-full h-10 mx-auto px-2 flex items-center justify-center text-zinc-100 font-semibold bg-teal-500 rounded-lg duration-300 hover:bg-teal-600 */
 
 /* Input date */
 .input-date { @apply relative w-10 h-10 inline-block rounded-lg;}

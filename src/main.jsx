@@ -9,25 +9,25 @@ import './index.css'
 import 'tw-elements'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <ThemeProvider>
-                <UserProvider>
-                    <Routes>
-                        <Route path='/' element={<App />}>
-                            <Route path='/' element={<Home />}></Route>
-                            <Route path='tasks/:category/:filter' element={<TaskCategory />}></Route>
-                            <Route path='task/:id' element={<TaskView />} />
-                            <Route path='add-task' element={<AddTasks />}></Route>
-                            <Route path='calendar' element={<Calendar />} ></Route>
-                            <Route path='analytics' element={<Analytics />}></Route>
-                            <Route path='settings' element={<Settings />}></Route>
-                        </Route>
-                        <Route path='login' element={<Login />} />
-                        <Route path='signup' element={<Signup />} />
-                    </Routes>
-                </UserProvider>
-            </ThemeProvider>
-        </BrowserRouter>
-    </React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      <ThemeProvider>
+        <UserProvider>
+          <Routes>
+            <Route path='/' element={<App />}>
+              <Route path='/' element={<Home />}></Route>
+              <Route path='tasks/:category/:filter' element={<TaskCategory />}></Route>
+              <Route path='task/:id' element={<TaskView />} />
+              <Route path='add-task' element={<AddTasks />}></Route>
+              <Route path='calendar' element={<Calendar />} ></Route>
+              <Route path='analytics' element={<Analytics />}></Route>
+              <Route path='settings' element={<Settings />}></Route>
+            </Route>
+            <Route path='login' element={<Login />} />
+            <Route path='signup' element={<Signup />} />
+          </Routes>
+        </UserProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 )
